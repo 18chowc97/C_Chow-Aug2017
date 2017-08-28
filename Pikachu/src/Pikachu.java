@@ -1,4 +1,6 @@
-
+//Carl Chow
+//August 28,2017
+//Prints Pikachu
 public class Pikachu {
 
 	public static void main(String[] args) {
