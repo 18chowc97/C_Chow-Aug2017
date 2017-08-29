@@ -9,7 +9,9 @@ public class Test {
 		
 		System.out.println("Test line break \nTest");
 		System.out.println(5%4);
-		System.out.printf("Number one is %d and number two is %d", n, n2);
+		System.out.printf("Number one is %d and number two is %d%n", n, n2);
+		System.out.println(n/n2);
+		System.out.println((double)n/n2);
 	}
 
 }
