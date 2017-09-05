@@ -41,22 +41,25 @@ public class Calculate {
 	}
 	public static String toImproperFrac (int wholenumber, int numerator, int denominator) {
 		//This method takes a mixed number and returns an improper fraction of the same value. 
-		int impropernumerator = (wholenumber * denominator) + numerator;
+		int impropernumerator = (Math.abs(wholenumber) * denominator) + Math.abs(numerator);
 		String improperfraction = impropernumerator + "/" + denominator;
+		if (wholenumber < 0) {
+			improperfraction = "-" + improperfraction;
+		}
 		return improperfraction;
 	}
 	public static String toMixedNum (int numerator, int denominator) {
 		//This method takes an improper fraction and returns a mixed number of the same value.
 		int wholenumber = numerator/denominator;
-		int remaindernumer = numerator % denominator;
-		String improperfrac = wholenumber + "_" + remaindernumer + "/" + denominator;
+		int remaindernumer = Math.abs(numerator) % Math.abs(denominator);
+		String improperfrac = wholenumber + "_" + remaindernumer + "/" + Math.abs(denominator);
 		return improperfrac;
 	}
 	public static String foil (int firstco, int secondco, int thirdco, int fourthco, String variable) {
 		int a = firstco * thirdco;
 		int b = (firstco * fourthco) +(secondco * thirdco);
 		int c = (thirdco * fourthco);
-		String quadratic = a + variable + "^2" + b + variable + c;
+		String quadratic = a + variable + "^2 + " + b + variable + " + " + c;
 		return quadratic;
 	}
 		

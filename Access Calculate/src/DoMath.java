@@ -9,10 +9,12 @@ public class DoMath {
 		System.out.println(Calculate.cube(5));
 		System.out.println(Calculate.average(10, 20));
 		System.out.println(Calculate.average(10, 20, 30));
-		System.out.println(Calculate.toDegrees(3.141592));
+		System.out.println(Calculate.toDegrees(3.141592653589));
 		System.out.println(Calculate.toRadians(180));
-		System.out.println(Calculate.discriminant(1, 2, 1));
-		System.out.println(Calculate.toImproperFrac(3, 1, 2));
+		System.out.println(Calculate.discriminant(1, -4, 4));
+		System.out.println(Calculate.toImproperFrac(-3, 1, 2));
+		System.out.println(Calculate.toMixedNum(-7, -3));
+		System.out.println(Calculate.foil(1,-2,1,-2,"x"));
 	}
 
 }
