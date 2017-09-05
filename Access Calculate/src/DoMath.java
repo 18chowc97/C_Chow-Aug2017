@@ -1,11 +1,11 @@
-//Carl
-//Calculate stuff
-//start date 9/1/17
+/* Carl Chow
+ * September 5, 2017
+ * This is the runner class for my Calculate Library methods.
+ */
 public class DoMath {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println(Calculate.square(5));
+		Calculate.square(5);
 	}
 
 }
