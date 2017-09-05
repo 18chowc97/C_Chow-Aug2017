@@ -8,11 +8,12 @@ public class Project2 {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// Testing Println and Print
 		int a = 1, b = 2;
 		int sum = Add(a, b);
-		System.out.println(sum);
-		System.out.println("hi there");
+		for (int i = 0; i <= 9; i++) {
+			System.out.println(Add(i, i+1));
+		}
 	}
 
 }
