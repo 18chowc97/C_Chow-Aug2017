@@ -41,7 +41,7 @@ public class Calculate {
 	}
 	public static String toImproperFrac (int wholenumber, int numerator, int denominator) {
 		//This method takes a mixed number and returns an improper fraction of the same value. 
-		int impropernumerator = (Math.abs(wholenumber) * denominator) + Math.abs(numerator);
+		int impropernumerator = (Math.abs(wholenumber) * Math.abs(denominator)) + Math.abs(numerator);
 		String improperfraction = impropernumerator + "/" + denominator;
 		if (wholenumber < 0) {
 			improperfraction = "-" + improperfraction;
@@ -57,9 +57,17 @@ public class Calculate {
 	}
 	public static String foil (int firstco, int secondco, int thirdco, int fourthco, String variable) {
 		int a = firstco * thirdco;
-		int b = (firstco * fourthco) +(secondco * thirdco);
+		int b = (firstco * fourthco) + (secondco * thirdco);
 		int c = (thirdco * fourthco);
-		String quadratic = a + variable + "^2 + " + b + variable + " + " + c;
+		String stringb = String.valueOf(b);
+		String stringc = String.valueOf(c);
+		if (b >= 0) {
+			stringb = "+" + b;
+		}
+		if (c >= 0) {
+			stringc = "+" + c;
+		}
+		String quadratic = a + variable + "^2" + stringb + variable + stringc;
 		return quadratic;
 	}
 		
