@@ -41,7 +41,7 @@ public class Calculate {
 	}
 	public static String toImproperFrac (int wholenumber, int numerator, int denominator) {
 		//This method takes a mixed number and returns an improper fraction of the same value. 
-		int impropernumerator = (Math.abs(wholenumber) * Math.abs(denominator)) + Math.abs(numerator);
+		int impropernumerator = (absValue(wholenumber) * absValue(denominator)) + absValue(numerator);
 		String improperfraction = impropernumerator + "/" + denominator;
 		if (wholenumber < 0) {
 			improperfraction = "-" + improperfraction;
@@ -51,16 +51,18 @@ public class Calculate {
 	public static String toMixedNum (int numerator, int denominator) {
 		//This method takes an improper fraction and returns a mixed number of the same value.
 		int wholenumber = numerator/denominator;
-		int remaindernumer = Math.abs(numerator) % Math.abs(denominator);
-		String improperfrac = wholenumber + "_" + remaindernumer + "/" + Math.abs(denominator);
+		int remaindernumer = absValue(numerator) % absValue(denominator);
+		String improperfrac = wholenumber + "_" + remaindernumer + "/" + absValue(denominator);
 		return improperfrac;
 	}
 	public static String foil (int firstco, int secondco, int thirdco, int fourthco, String variable) {
+		// This method takes the coefficient and constant values of a factored quadratic equation
+		// and returns a quadratic equation in standard form.
 		int a = firstco * thirdco;
 		int b = (firstco * fourthco) + (secondco * thirdco);
 		int c = (thirdco * fourthco);
-		String stringb = String.valueOf(b);
-		String stringc = String.valueOf(c);
+		String stringb = b + "";
+		String stringc = c + "";
 		if (b >= 0) {
 			stringb = "+" + b;
 		}
@@ -71,6 +73,8 @@ public class Calculate {
 		return quadratic;
 	}
 	public static boolean isDivisibleBy(int dividend, int divisor){
+		// This method takes two integers and checks if one integer is divisible into the other,
+		// with the first integer always being the dividend.
 		if (dividend % divisor == 0) {
 			return true;
 		}
@@ -79,6 +83,16 @@ public class Calculate {
 		}
 	}
 	public static double absValue (double number) {
+		// This method takes a double value and returns the absolute value of that double. 
+		if (number >= 0) {
+			return number;
+		}
+		else {
+			return -1 * number;
+		}
+	}
+	public static int absValue (int number) {
+		//This method takes an integer value and returns the absolute value of that integer.
 		if (number >= 0) {
 			return number;
 		}
@@ -87,6 +101,7 @@ public class Calculate {
 		}
 	}
 	public static double max (double firstnum, double secondnum) {
+		// This method takes two double values and returns the larger of the two.
 		if (firstnum >= secondnum) {
 			return firstnum;
 		}
@@ -95,6 +110,7 @@ public class Calculate {
 		}	
 	}
 	public static double max (double firstnum, double secondnum, double thirdnum) {
+		// This method takes three double values and returns the largest one.
 		if (firstnum >= secondnum) {
 			if(firstnum >= thirdnum) {
 				return firstnum;
@@ -113,6 +129,7 @@ public class Calculate {
 		}
 	}
 	public static int min (int firstnum, int secondnum) {
+		// This method takes two integers and returns the smaller of the two.
 		if (firstnum <= secondnum) {
 			return firstnum;
 		}
@@ -121,13 +138,15 @@ public class Calculate {
 		}
 	}
 	public static double round2(double decimal) {
-		double rounded = decimal - (decimal % 0.01);
-		if (decimal % 0.01 >= 0.005) {
-			rounded = rounded + 0.01;
-			return rounded;
+		// This method takes a double and rounds it to two decimal places.
+		double decimal1000 = (decimal * 1000) - ((decimal * 1000) % 1);
+		double rounded = decimal1000 - (decimal1000 % 10);
+		if (decimal1000 % 10 >= 5) {
+			rounded += 10;
+			return rounded/1000;
 		}
 		else {
-			return rounded;
+			return rounded/1000;
 		}
 	}
 }
