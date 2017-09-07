@@ -70,5 +70,64 @@ public class Calculate {
 		String quadratic = a + variable + "^2" + stringb + variable + stringc;
 		return quadratic;
 	}
-		
+	public static boolean isDivisibleBy(int dividend, int divisor){
+		if (dividend % divisor == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	public static double absValue (double number) {
+		if (number >= 0) {
+			return number;
+		}
+		else {
+			return -1 * number;
+		}
+	}
+	public static double max (double firstnum, double secondnum) {
+		if (firstnum >= secondnum) {
+			return firstnum;
+		}
+		else {
+			return secondnum;
+		}	
+	}
+	public static double max (double firstnum, double secondnum, double thirdnum) {
+		if (firstnum >= secondnum) {
+			if(firstnum >= thirdnum) {
+				return firstnum;
+			}
+			else {
+				return thirdnum;
+			}
+		}
+		else {
+			if(secondnum >= thirdnum) {
+				return secondnum;
+			}
+			else {
+				return thirdnum;
+			}
+		}
+	}
+	public static int min (int firstnum, int secondnum) {
+		if (firstnum <= secondnum) {
+			return firstnum;
+		}
+		else {
+			return secondnum;
+		}
+	}
+	public static double round2(double decimal) {
+		double rounded = decimal - (decimal % 0.01);
+		if (decimal % 0.01 >= 0.005) {
+			rounded = rounded + 0.01;
+			return rounded;
+		}
+		else {
+			return rounded;
+		}
+	}
 }
