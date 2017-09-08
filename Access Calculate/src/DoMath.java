@@ -18,7 +18,7 @@ public class DoMath {
 		System.out.println(Calculate.max(100, 101));
 		System.out.println(Calculate.max(101, 102, 103));
 		System.out.println(Calculate.min(100, -101));
-		System.out.println(Calculate.round2(100.995));
+		System.out.println(Calculate.round2(-100.986));
 	}
 
 }
