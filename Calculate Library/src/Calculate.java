@@ -139,20 +139,14 @@ public class Calculate {
 	}
 	public static double round2(double decimal) {
 		// This method takes a double and rounds it to two decimal places.
-		double decimal1000 = absValue((decimal * 1000) - ((decimal * 1000) % 1));
-		double rounded = decimal1000 - (decimal1000 % 10);
-		if (decimal1000 % 10 >= 5) {
-			rounded += 10;
-			if (decimal < 0) {
-				rounded *= -1;
-			}
-			return rounded/1000;
+		double rounded = absValue(1000 * (decimal - (decimal % 0.001)));
+		double roundedup = rounded - (rounded % 10);
+		if (rounded % 10 >= 5) {
+			roundedup += 10;
 		}
-		else {
-			if (decimal < 0) {
-				rounded *= -1;
-			}
-			return rounded/1000;
+		if (decimal < 0) {
+			roundedup *= -1;
 		}
+		return roundedup/1000;
 	}
 }
