@@ -149,4 +149,35 @@ public class Calculate {
 		}
 		return roundedup/1000;
 	}
+	//Part 3
+	public static double exponent(double base, double exponent) {
+		//This method takes two double values and takes one value to power of another, assuming the exponent is positive.
+		double basepower = base;
+		for (int i = 1; i < exponent;i++) {
+			basepower = basepower * base;
+		}
+		return basepower;
+	}
+	public static int factorial (int integer) {
+		// This method takes a positive integer and returns its factorial (n!).
+		int sum = 1;
+		for (int i = integer; i >= 1; i--) {
+			sum *=i;
+		}
+		return sum;
+	}
+	public static boolean isPrime(int integer) {
+		//This method takes a positive integer and checks whether it is a prime number.
+		boolean test = false;
+		for (int i = 2;i<absValue(integer);i++) {
+			if (isDivisibleBy(integer, i)) {
+				test = false;
+			}
+			else {
+				test = true;
+			}
+		}
+		return test;
+	}
 }
+

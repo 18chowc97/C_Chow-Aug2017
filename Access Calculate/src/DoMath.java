@@ -20,6 +20,9 @@ public class DoMath {
 		System.out.println(Calculate.max(101, 102, 103));
 		System.out.println(Calculate.min(100, -101));
 		System.out.println(Calculate.round2(-10.9655));
+		System.out.println(Calculate.exponent(-2, 3));
+		System.out.println(Calculate.factorial(4));
+		System.out.println(Calculate.isPrime(-7));
 	}
 
 }
