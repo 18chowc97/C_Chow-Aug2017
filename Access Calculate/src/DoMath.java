@@ -23,6 +23,8 @@ public class DoMath {
 		System.out.println(Calculate.exponent(-2, 3));
 		System.out.println(Calculate.factorial(4));
 		System.out.println(Calculate.isPrime(-7));
+		System.out.println(Calculate.gcf(1210, 550));
+		System.out.println(Calculate.sqrt(2));
 	}
 
 }

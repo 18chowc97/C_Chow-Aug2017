@@ -109,6 +109,15 @@ public class Calculate {
 			return secondnum;
 		}	
 	}
+	public static int max (int firstnum, int secondnum) {
+		// This method takes two integer values and returns the larger of the two.
+		if (firstnum >= secondnum) {
+			return firstnum;
+		}
+		else {
+			return secondnum;
+		}	
+	}
 	public static double max (double firstnum, double secondnum, double thirdnum) {
 		// This method takes three double values and returns the largest one.
 		if (firstnum >= secondnum) {
@@ -160,11 +169,10 @@ public class Calculate {
 	}
 	public static int factorial (int integer) {
 		// This method takes a positive integer and returns its factorial (n!).
-		int sum = 1;
-		for (int i = integer; i >= 1; i--) {
-			sum *=i;
+		for (int i = integer - 1; i >= 1; i--) {
+			integer *=i;
 		}
-		return sum;
+		return integer;
 	}
 	public static boolean isPrime(int integer) {
 		//This method takes a positive integer and checks whether it is a prime number.
@@ -178,6 +186,25 @@ public class Calculate {
 			}
 		}
 		return test;
+	}
+	public static int gcf(int greaterint, int smallerint) {
+		//This method takes two positive integers and returns the greatest common factor (divisor).
+		// It is also possible to use Euclidean Algorithm.
+		int gcf = 1;
+		for (int i = 1; i<= smallerint; i++) {
+			if (isDivisibleBy(greaterint,i) && isDivisibleBy(smallerint,i)) {
+				gcf = i;
+			}
+		}
+		return gcf;
+	}
+	public static double sqrt(double operand) {
+		// This method takes a double value and returns an approximation of its square root, without recursion.
+		double guess = 1;
+		while (absValue(operand - (guess * guess)) >= 0.005){
+			guess = 0.5 * (operand/guess + guess);
+		}
+		return round2(guess);
 	}
 }
 
