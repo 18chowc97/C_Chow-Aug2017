@@ -14,6 +14,16 @@ public class Project2 {
 		for (int i = 0; i <= 9; i++) {
 			System.out.println(Add(i, i+1));
 		}
+		int n = 91;
+		int factor;
+		if (Math.abs(n) > 2) {
+			for (factor = 2; n % factor != 0; factor++) {
+			}
+			System.out.println(factor);
+		}
+		else {
+			System.out.println("1");
+		}
+		
 	}
-
 }

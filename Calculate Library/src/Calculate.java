@@ -72,6 +72,7 @@ public class Calculate {
 		String quadratic = a + variable + "^2" + stringb + variable + stringc;
 		return quadratic;
 	}
+	// Part 2
 	public static boolean isDivisibleBy(int dividend, int divisor){
 		// This method takes two integers and checks if one integer is divisible into the other,
 		// with the first integer always being the dividend.
@@ -177,7 +178,7 @@ public class Calculate {
 	public static boolean isPrime(int integer) {
 		//This method takes a positive integer and checks whether it is a prime number.
 		boolean test = false;
-		for (int i = 2;i<absValue(integer);i++) {
+		for (int i = 2; i < absValue(integer); i++) {
 			if (isDivisibleBy(integer, i)) {
 				test = false;
 			}
