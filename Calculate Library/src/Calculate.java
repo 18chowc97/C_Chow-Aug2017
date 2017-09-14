@@ -160,7 +160,7 @@ public class Calculate {
 		return roundedup/1000;
 	}
 	//Part 3
-	public static double exponent(double base, double exponent) {
+	public static double exponent(double base, int exponent) {
 		//This method takes two double values and takes one value to power of another, assuming the exponent is positive.
 		double basepower = base;
 		for (int i = 1; i < exponent;i++) {
@@ -178,7 +178,7 @@ public class Calculate {
 	public static boolean isPrime(int integer) {
 		//This method takes a positive integer and checks whether it is a prime number.
 		boolean test = false;
-		for (int i = 2; i < absValue(integer); i++) {
+		for (int i = 2; i < integer; i++) {
 			if (isDivisibleBy(integer, i)) {
 				test = false;
 			}
@@ -192,7 +192,7 @@ public class Calculate {
 		//This method takes two positive integers and returns the greatest common factor (divisor).
 		// It is also possible to use Euclidean Algorithm.
 		int gcf = 1;
-		for (int i = 1; i<= smallerint; i++) {
+		for (int i = 1; i<= min(smallerint, greaterint); i++) {
 			if (isDivisibleBy(greaterint,i) && isDivisibleBy(smallerint,i)) {
 				gcf = i;
 			}
@@ -206,6 +206,19 @@ public class Calculate {
 			guess = 0.5 * (operand/guess + guess);
 		}
 		return round2(guess);
+	}
+	public static String quadForm(int a, int b, int c) {
+		// This method takes the coefficient values of a quadratic and returns its roots.
+		double discriminant = discriminant((double) a, (double) b, (double) c);
+		if (discriminant < 0) {
+			return "no real roots";
+		}
+		else if (discriminant == 0) {
+			return round2(-b/(2 * a)) + "";
+		}
+		else {
+			return round2((-b + sqrt(discriminant))/(2 * a)) + " and " + round2((-b - sqrt(discriminant)/(2 * a)));
+		}
 	}
 }
 
