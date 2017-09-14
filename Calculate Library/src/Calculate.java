@@ -190,7 +190,7 @@ public class Calculate {
 	}
 	public static int gcf(int greaterint, int smallerint) {
 		//This method takes two positive integers and returns the greatest common factor (divisor).
-		// It is also possible to use Euclidean Algorithm.
+		// It is also possible to use the Euclidean Algorithm.
 		int gcf = 1;
 		for (int i = 1; i<= min(smallerint, greaterint); i++) {
 			if (isDivisibleBy(greaterint,i) && isDivisibleBy(smallerint,i)) {

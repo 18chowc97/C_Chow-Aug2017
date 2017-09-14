@@ -17,7 +17,7 @@ public class DoMath {
 		System.out.println(Calculate.foil(1,81,14,-2,"x"));
 		System.out.println(Calculate.isDivisibleBy(3, 7));
 		System.out.println(Calculate.max(100, 101));
-		System.out.println(Calculate.max(101, 102, 103));
+		System.out.println(Calculate.max(101, 102, 104));
 		System.out.println(Calculate.min(100, -101));
 		System.out.println(Calculate.round2(-10.9655));
 		System.out.println(Calculate.exponent(-2, 3));
@@ -25,6 +25,6 @@ public class DoMath {
 		System.out.println(Calculate.isPrime(113));
 		System.out.println(Calculate.gcf(1210, 550));
 		System.out.println(Calculate.sqrt(3));
-		System.out.println(Calculate.quadForm(-21, -24, 183));
+		System.out.println(Calculate.quadForm(-21, -24, 13));
 	}
 }
