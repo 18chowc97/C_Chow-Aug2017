@@ -163,6 +163,9 @@ public class Calculate {
 	public static double exponent(double base, int exponent) {
 		//This method takes two double values and takes one value to power of another, assuming the exponent is positive.
 		double basepower = base;
+		if (exponent < 0) {
+			throw new IllegalArgumentException("Negative exponent: " + exponent);
+		}
 		for (int i = 1; i < exponent;i++) {
 			basepower = basepower * base;
 		}
@@ -170,6 +173,9 @@ public class Calculate {
 	}
 	public static int factorial (int integer) {
 		// This method takes a positive integer and returns its factorial (n!).
+		if (integer < 0) {
+			throw new IllegalArgumentException("Negative integer: "+ integer);
+		}
 		for (int i = integer - 1; i >= 1; i--) {
 			integer *=i;
 		}

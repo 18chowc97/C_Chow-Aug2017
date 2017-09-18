@@ -21,7 +21,7 @@ public class DoMath {
 		System.out.println(Calculate.min(100, -101));
 		System.out.println(Calculate.round2(-10.9655));
 		System.out.println(Calculate.exponent(-2, 3));
-		System.out.println(Calculate.factorial(4));
+		System.out.println(Calculate.factorial(-4));
 		System.out.println(Calculate.isPrime(113));
 		System.out.println(Calculate.gcf(1210, 550));
 		System.out.println(Calculate.sqrt(3));
