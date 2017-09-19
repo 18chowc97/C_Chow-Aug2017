@@ -41,6 +41,9 @@ public class Calculate {
 	}
 	public static String toImproperFrac (int wholenumber, int numerator, int denominator) {
 		//This method takes a mixed number and returns an improper fraction of the same value. 
+		if (denominator == 0) {
+			throw new IllegalArgumentException("Zero as denominator");
+		}
 		int impropernumerator = (absValue(wholenumber) * absValue(denominator)) + absValue(numerator);
 		String improperfraction = impropernumerator + "/" + denominator;
 		if (wholenumber < 0) {
@@ -50,6 +53,9 @@ public class Calculate {
 	}
 	public static String toMixedNum (int numerator, int denominator) {
 		//This method takes an improper fraction and returns a mixed number of the same value.
+		if (denominator == 0) {
+			throw new IllegalArgumentException("Zero as denominator");
+		}
 		int wholenumber = numerator/denominator;
 		int remaindernumer = absValue(numerator) % absValue(denominator);
 		String improperfrac = wholenumber + "_" + remaindernumer + "/" + absValue(denominator);
@@ -76,12 +82,13 @@ public class Calculate {
 	public static boolean isDivisibleBy(int dividend, int divisor){
 		// This method takes two integers and checks if one integer is divisible into the other,
 		// with the first integer always being the dividend.
-		if (dividend % divisor == 0) {
+		if (dividend == 0 || divisor == 0) {
+			throw new IllegalArgumentException ("Inappropriate values: "+ divisor +", "+ dividend);
+		}
+		if (max(dividend, divisor) % min(dividend, divisor) == 0) {
 			return true;
 		}
-		else {
 			return false;
-		}
 	}
 	public static double absValue (double number) {
 		// This method takes a double value and returns the absolute value of that double. 
@@ -162,11 +169,12 @@ public class Calculate {
 	//Part 3
 	public static double exponent(double base, int exponent) {
 		//This method takes two double values and takes one value to power of another, assuming the exponent is positive.
-		double basepower = base;
+		double basepower = 1;
 		if (exponent < 0) {
+			//Algorithm's fault, not math's
 			throw new IllegalArgumentException("Negative exponent: " + exponent);
 		}
-		for (int i = 1; i < exponent;i++) {
+		for (int i = 1; i <= exponent;i++) {
 			basepower = basepower * base;
 		}
 		return basepower;
@@ -183,21 +191,24 @@ public class Calculate {
 	}
 	public static boolean isPrime(int integer) {
 		//This method takes a positive integer and checks whether it is a prime number.
-		boolean test = false;
+		if (integer <= 0) {
+			throw new IllegalArgumentException("Inappropriate value: " + integer);
+		}
+		boolean test = true;
 		for (int i = 2; i < integer; i++) {
 			if (isDivisibleBy(integer, i)) {
 				test = false;
 			}
-			else {
-				test = true;
-			}
 		}
-		return test;
+		if (test) {
+			return true;
+		}
+		return false;
 	}
 	public static int gcf(int greaterint, int smallerint) {
 		//This method takes two positive integers and returns the greatest common factor (divisor).
 		// It is also possible to use the Euclidean Algorithm.
-		int gcf = 1;
+		int gcf = max(greaterint, smallerint);
 		for (int i = 1; i<= min(smallerint, greaterint); i++) {
 			if (isDivisibleBy(greaterint,i) && isDivisibleBy(smallerint,i)) {
 				gcf = i;
@@ -207,6 +218,9 @@ public class Calculate {
 	}
 	public static double sqrt(double operand) {
 		// This method takes a double value and returns an approximation of its square root, without recursion.
+		if (operand < 0) {
+			throw new IllegalArgumentException ("Inappropriate negative value: " + operand);
+		}
 		double guess = 1;
 		while (absValue(operand - (guess * guess)) >= 0.005){
 			guess = 0.5 * (operand/guess + guess);
