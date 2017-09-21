@@ -67,8 +67,8 @@ public class Calculate {
 		int a = firstco * thirdco;
 		int b = (firstco * fourthco) + (secondco * thirdco);
 		int c = (thirdco * fourthco);
-		String stringb = b + "";
-		String stringc = c + "";
+		String stringb = String.valueOf(b);
+		String stringc = String.valueOf(c);
 		if (b >= 0) {
 			stringb = "+" + b;
 		}
@@ -85,7 +85,7 @@ public class Calculate {
 		if (dividend == 0 || divisor == 0) {
 			throw new IllegalArgumentException ("Inappropriate values: "+ divisor +", "+ dividend);
 		}
-		if (max(dividend, divisor) % min(dividend, divisor) == 0) {
+		if (max(absValue(dividend), absValue(divisor)) % min(absValue(dividend), absValue(divisor)) == 0) {
 			return true;
 		}
 			return false;
@@ -175,7 +175,7 @@ public class Calculate {
 			throw new IllegalArgumentException("Negative exponent: " + exponent);
 		}
 		for (int i = 1; i <= exponent;i++) {
-			basepower = basepower * base;
+			basepower *= base;
 		}
 		return basepower;
 	}
@@ -183,6 +183,9 @@ public class Calculate {
 		// This method takes a positive integer and returns its factorial (n!).
 		if (integer < 0) {
 			throw new IllegalArgumentException("Negative integer: "+ integer);
+		}
+		if (integer == 0) {
+			return 1;
 		}
 		for (int i = integer - 1; i >= 1; i--) {
 			integer *=i;
@@ -208,7 +211,10 @@ public class Calculate {
 	public static int gcf(int greaterint, int smallerint) {
 		//This method takes two positive integers and returns the greatest common factor (divisor).
 		// It is also possible to use the Euclidean Algorithm.
-		int gcf = max(greaterint, smallerint);
+		if (greaterint <= 0 || smallerint <= 0) {
+			throw new IllegalArgumentException("Illegal number values: "+greaterint+", "+smallerint);
+		}
+		int gcf = 1;
 		for (int i = 1; i<= min(smallerint, greaterint); i++) {
 			if (isDivisibleBy(greaterint,i) && isDivisibleBy(smallerint,i)) {
 				gcf = i;
