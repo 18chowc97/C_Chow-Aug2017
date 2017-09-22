@@ -39,6 +39,10 @@ public class Calculate {
 		double discriminant = (b * b) - 4 * a * c;
 		return discriminant;
 	}
+	public static double discriminant (int a, int b, int c) {
+		//This method takes integer coefficients of a quadratic equation in standard form and returns the discriminant.
+		return (double)(square(b) - 4 * a * c);
+	}
 	public static String toImproperFrac (int wholenumber, int numerator, int denominator) {
 		//This method takes a mixed number and returns an improper fraction of the same value. 
 		if (denominator == 0) {
@@ -235,7 +239,7 @@ public class Calculate {
 	}
 	public static String quadForm(int a, int b, int c) {
 		// This method takes the coefficient values of a quadratic and returns its roots.
-		double discriminant = discriminant((double) a, (double) b, (double) c);
+		double discriminant = discriminant(a, b, c);
 		if (discriminant < 0) {
 			return "no real roots";
 		}
