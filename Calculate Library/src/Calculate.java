@@ -201,10 +201,10 @@ public class Calculate {
 		if (integer <= 0) {
 			throw new IllegalArgumentException("Inappropriate value: " + integer);
 		}
-		boolean test = true;
+		boolean test = false;
 		for (int i = 2; i < integer; i++) {
-			if (isDivisibleBy(integer, i)) {
-				test = false;
+			if (!isDivisibleBy(integer, i)) {
+				test = true;
 			}
 		}
 		if (test) {
