@@ -247,7 +247,7 @@ public class Calculate {
 			return round2(-b/(2 * a)) + "";
 		}
 		else {
-			return round2((-b + sqrt(discriminant))/(2 * a)) + " and " + round2((-b - sqrt(discriminant)/(2 * a)));
+			return round2((-b + sqrt(discriminant))/(2 * a)) + " and " + round2((-b - sqrt(discriminant))/(2 * a));
 		}
 	}
 }

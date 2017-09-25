@@ -8,9 +8,9 @@ public class QuadraticClient {
 		Scanner console = new Scanner(System.in);
 		double a=0, b=0, c=0;
 		int test = 0;
-		System.out.println("Welcome to Quadratic Describer!\nA quadratic equation is in the form ax^2+bx+c");
+		System.out.println("Welcome to Quadratic Describer!\nA quadratic equation is in the form ax^2+bx+c.");
 		System.out.println("What is the value of the \"a\" coefficient?");
-		String A = console.next();
+		String A = console.nextLine();
 		while(test == 0) {
 			try {
 				a = Double.parseDouble(A);
@@ -28,7 +28,7 @@ public class QuadraticClient {
 			}
 		}
 		System.out.println("Great choice. What is the value of the \"b\" coefficient?");
-		String B = console.next();
+		String B = console.nextLine();
 		while(test==1) {
 			try {
 				b = Double.parseDouble(B);
@@ -48,7 +48,7 @@ public class QuadraticClient {
 			}
 			catch(NumberFormatException exception){
 				System.out.println("Not a valid number. Try again.");
-				C = console.next();
+				C = console.nextLine();
 			}
 		}
 		System.out.println("Here is the description of the quadratic function:");

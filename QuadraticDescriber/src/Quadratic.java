@@ -5,13 +5,18 @@
 public class Quadratic {
 	public static void quadrDescriber(double a, double b, double c) {
 		if(a < 0) {
-			System.out.println("Parabola opens downard.");
+			System.out.println("The parabola opens downard.");
 		}
 		else {
-			System.out.println("Parabola opens upward.");
+			System.out.println("The parabola opens upward.");
 		}
-		System.out.println("The vertex is (" + round2(-b/(2*a)) + ", " + ((square(b)/(4 * a) - round2(square(b))/(2 * a) + c)) + ").");
+		System.out.println("The vertex is " + vertex(a, b, c) + ".");
 		System.out.println("The function's roots (x-intercepts): " + quadForm(a, b, c));
+	}
+	public static String vertex(double a, double b, double c) {
+		double x = round2(-b/(2*a));
+		double y = round2((square(b)/(4 * a) - (square(b))/(2 * a) + c));
+		return "("+x+", "+y+")";
 	}
 	public static int square (int operand) {
 		// This method takes an integer and returns its square.
@@ -77,7 +82,7 @@ public class Quadratic {
 			return round2(-b/(2 * a)) + "";
 		}
 		else {
-			return round2((-b + sqrt(discriminant))/(2 * a)) + " and " + round2((-b - sqrt(discriminant)/(2 * a)));
+			return round2((-b + sqrt(discriminant))/(2 * a)) + " and " + round2(((-b - sqrt(discriminant))/(2 * a)));
 		}
 	}
 }
