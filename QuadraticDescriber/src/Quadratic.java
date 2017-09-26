@@ -4,14 +4,32 @@
  */
 public class Quadratic {
 	public static void quadrDescriber(double a, double b, double c) {
+		String B = "";
+		String C = "";
+		if (b > 0) {
+			B = " + " + b + " x ";
+		}
+		else if(b < 0){
+			B = " - " + absValue(b)+" x ";
+		}
+		if (c > 0) {
+			C = " + " + c;
+		}
+		else if(c<0){
+			C = " - " + absValue(c);
+		} //Formats the function correctly.
+		System.out.println("Description of Graph of :");
+		System.out.println("y = "+a+" x^2"+B+C);
 		if(a < 0) {
-			System.out.println("The parabola opens downard.");
+			System.out.println("Opens: Down");
 		}
 		else {
-			System.out.println("The parabola opens upward.");
-		}
-		System.out.println("The vertex is " + vertex(a, b, c) + ".");
-		System.out.println("The function's roots (x-intercepts): " + quadForm(a, b, c));
+			System.out.println("Opens: Up");
+		} // Checks which direction it opens.
+		System.out.println("Axis of Symmetry: x = " + round2(-b/(2*a)));
+		System.out.println("Vertex: " + vertex(a, b, c)); //Uses vertex method below.
+		System.out.println("X-Intercept(s): " + quadForm(a, b, c));
+		System.out.println("Y-Intercept: " + c);
 	}
 	public static String vertex(double a, double b, double c) {
 		double x = round2(-b/(2*a));
