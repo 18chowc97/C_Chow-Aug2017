@@ -7,10 +7,10 @@ public class Quadratic {
 		String B = "";
 		String C = "";
 		if (b > 0) {
-			B = " + " + b + " x ";
+			B = " + " + b + " x";
 		}
 		else if(b < 0){
-			B = " - " + absValue(b)+" x ";
+			B = " - " + absValue(b)+" x";
 		}
 		if (c > 0) {
 			C = " + " + c;
