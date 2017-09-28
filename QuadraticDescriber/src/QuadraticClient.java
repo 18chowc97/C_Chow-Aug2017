@@ -96,7 +96,7 @@ public class QuadraticClient {
 					}
 				}
 				Quadratic.quadrDescriber(a, b, c);
-				System.out.println("Do you want to continue?(Type \"quit\" to exit.)");
+				System.out.println("Do you want to continue? (Type \"quit\" to exit.)");
 				input = console.next().toLowerCase();
 				while (test == 3) {
 					if (input.equals("yes")) {
