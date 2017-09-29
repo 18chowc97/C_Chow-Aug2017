@@ -103,13 +103,13 @@ public class Calculate {
 			return -1 * number;
 		}
 	}
-	public static int absValue (int number) {
+	public static int absValue (int integer) {
 		//This method takes an integer value and returns the absolute value of that integer.
-		if (number >= 0) {
-			return number;
+		if (integer >= 0) {
+			return integer;
 		}
 		else {
-			return -1 * number;
+			return -1 * integer;
 		}
 	}
 	public static double max (double firstnum, double secondnum) {
@@ -239,6 +239,9 @@ public class Calculate {
 	}
 	public static String quadForm(int a, int b, int c) {
 		// This method takes the coefficient values of a quadratic and returns its roots.
+		if (a == 0) {
+			throw new IllegalArgumentException ("not a quadratic equation");
+		}
 		double discriminant = discriminant(a, b, c);
 		if (discriminant < 0) {
 			return "no real roots";

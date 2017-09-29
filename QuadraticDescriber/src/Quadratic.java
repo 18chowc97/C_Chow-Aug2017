@@ -92,6 +92,9 @@ public class Quadratic {
 	}
 	public static String quadForm(double a, double b, double c) {
 		// This method takes the coefficient values of a quadratic and returns its roots.
+		if (a==0) {
+			throw new IllegalArgumentException ("not a quadratic equation");
+		}
 		double discriminant = discriminant(a, b, c);
 		if (discriminant < 0) {
 			return "no real roots";
