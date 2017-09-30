@@ -2,9 +2,9 @@
  * Carl Chow
  * September 5, 2017
  * This is a library that will contain various mathematical methods.
+ * Overloaded methods likely used to also accept doubles as parameters.
  */
 public class Calculate {
-	static double pi = 3.14159;
 	public static int square (int operand) {
 		// This method takes an integer and returns its square.
 		return operand * operand;
@@ -25,13 +25,13 @@ public class Calculate {
 		return average;
 	}
 	public static double toDegrees (double radian) {
-		// This method takes a radian value and converts it to degrees.
-		double degree = (radian * 180)/pi;
+		// This method takes a radian value and converts it to degrees (unrounded).
+		double degree = (radian * 180)/3.14159;
 		return degree;
 	}
 	public static double toRadians (double degree) {
 		//This method takes a degree value and converts it to radians.
-		double radian = (degree * pi)/180;
+		double radian = (degree * 3.14159)/180;
 		return radian;
 	}
 	public static double discriminant (double a, double b, double c) {
@@ -45,13 +45,19 @@ public class Calculate {
 	}
 	public static String toImproperFrac (int wholenumber, int numerator, int denominator) {
 		//This method takes a mixed number and returns an improper fraction of the same value. 
+		//This assumes both numerator and denominator values are written properly.
+		//e.g. You would not write a mixed number -3_-1/2 or -3_1/-2. The method treats this the same as -3_1/2.
 		if (denominator == 0) {
 			throw new IllegalArgumentException("Zero as denominator");
 		}
-		int impropernumerator = (absValue(wholenumber) * absValue(denominator)) + absValue(numerator);
+		int negativecheck = (numerator * denominator)/absValue(numerator * denominator);
+		int impropernumerator = (absValue(wholenumber * denominator)) + absValue(numerator);
 		String improperfraction = impropernumerator + "/" + denominator;
 		if (wholenumber < 0) {
 			improperfraction = "-" + improperfraction;
+		}
+		if (wholenumber == 0) {
+			improperfraction = (negativecheck * absValue(numerator)) + "/" + absValue(denominator);
 		}
 		return improperfraction;
 	}
@@ -61,9 +67,14 @@ public class Calculate {
 			throw new IllegalArgumentException("Zero as denominator");
 		}
 		int wholenumber = numerator/denominator;
+		int negativecheck = (numerator * denominator)/absValue(numerator * denominator);
 		int remaindernumer = absValue(numerator) % absValue(denominator);
-		String improperfrac = wholenumber + "_" + remaindernumer + "/" + absValue(denominator);
-		return improperfrac;
+		String mixednumber = wholenumber + "_" + remaindernumer + "/" + absValue(denominator);
+		if (wholenumber == 0) {
+			//If absolute value of fraction is less than one, return this. 
+			mixednumber = (negativecheck * absValue(numerator)) + "/" + absValue(denominator);
+		}
+		return mixednumber;
 	}
 	public static String foil (int firstco, int secondco, int thirdco, int fourthco, String variable) {
 		// This method takes the coefficient and constant values of a factored quadratic equation
@@ -76,6 +87,8 @@ public class Calculate {
 		if (b >= 0) {
 			stringb = "+" + b;
 		}
+		//Formats the "bx" and "c" portion of the string.
+		//However, still leaves the variable even if the coefficient is zero.
 		if (c >= 0) {
 			stringc = "+" + c;
 		}
@@ -84,15 +97,19 @@ public class Calculate {
 	}
 	// Part 2
 	public static boolean isDivisibleBy(int dividend, int divisor){
-		// This method takes two integers and checks if one integer is divisible into the other,
-		// with the first integer always being the dividend.
+		// This method takes two integers and checks if one integer is divisible into the other.
 		if (dividend == 0 || divisor == 0) {
 			throw new IllegalArgumentException ("Inappropriate values: "+ divisor +", "+ dividend);
 		}
+		//This method takes the larger of the two values as the dividend, and the smaller as divisor.
+		//i.e. Both isDivisibleBy(8, 2) and isDivisibleBy(2, 8) will return true
+		//because it is known that a larger integer will never divide into a smaller integer without remainder.
 		if (max(absValue(dividend), absValue(divisor)) % min(absValue(dividend), absValue(divisor)) == 0) {
 			return true;
 		}
+		else {
 			return false;
+		}
 	}
 	public static double absValue (double number) {
 		// This method takes a double value and returns the absolute value of that double. 
@@ -161,13 +178,16 @@ public class Calculate {
 	public static double round2(double decimal) {
 		// This method takes a double and rounds it to two decimal places.
 		double rounded = absValue(1000 * (decimal - (decimal % 0.001)));
+		//Leaves up to thousandths place and multiplies absolute value by 1000.
 		double roundedup = rounded - (rounded % 10);
 		if (rounded % 10 >= 5) {
+			//If thousandths place (currently ones) is greater than 5, add one to hundredths place.
 			roundedup += 10;
 		}
 		if (decimal < 0) {
 			roundedup *= -1;
 		}
+		//Note: If the rounded answer ends in zero (e.g. 1.20), Java removes the trailing zero (1.2).
 		return roundedup/1000;
 	}
 	//Part 3
@@ -176,6 +196,7 @@ public class Calculate {
 		double basepower = 1;
 		if (exponent < 0) {
 			//Algorithm's fault, not math's
+			//Can also return [1/b^(|x|)] if negative exponent
 			throw new IllegalArgumentException("Negative exponent: " + exponent);
 		}
 		for (int i = 1; i <= exponent;i++) {
@@ -186,12 +207,14 @@ public class Calculate {
 	public static int factorial (int integer) {
 		// This method takes a positive integer and returns its factorial (n!).
 		if (integer < 0) {
+			//Only checks if parameter is negative, and not if integer.
+			//May require a String parameter to do that. 
 			throw new IllegalArgumentException("Negative integer: "+ integer);
 		}
-		if (integer == 0) {
+		if (integer == 0 || integer == 1) {
 			return 1;
 		}
-		for (int i = integer - 1; i >= 1; i--) {
+		for (int i = integer - 1; i > 1; i--) {
 			integer *=i;
 		}
 		return integer;
@@ -199,18 +222,19 @@ public class Calculate {
 	public static boolean isPrime(int integer) {
 		//This method takes a positive integer and checks whether it is a prime number.
 		if (integer <= 0) {
+			//Again, only checks if input is negative, and not if actually an integer.
 			throw new IllegalArgumentException("Inappropriate value: " + integer);
 		}
-		boolean test = false;
+		if(integer == 1) {
+			return false;
+		}
+		boolean test = true;
 		for (int i = 2; i < integer; i++) {
-			if (!isDivisibleBy(integer, i)) {
-				test = true;
+			if (isDivisibleBy(integer, i)) {
+				test = false;
 			}
 		}
-		if (test) {
-			return true;
-		}
-		return false;
+		return test;
 	}
 	public static int gcf(int greaterint, int smallerint) {
 		//This method takes two positive integers and returns the greatest common factor (divisor).
@@ -233,6 +257,7 @@ public class Calculate {
 		}
 		double guess = 1;
 		while (absValue(operand - (guess * guess)) >= 0.005){
+			//Can also change the required 0.005 to a smaller value for greater accuracy.
 			guess = 0.5 * (operand/guess + guess);
 		}
 		return round2(guess);
@@ -240,6 +265,7 @@ public class Calculate {
 	public static String quadForm(int a, int b, int c) {
 		// This method takes the coefficient values of a quadratic and returns its roots.
 		if (a == 0) {
+			//Checks if equation is actually quadratic first.
 			throw new IllegalArgumentException ("not a quadratic equation");
 		}
 		double discriminant = discriminant(a, b, c);
@@ -247,6 +273,7 @@ public class Calculate {
 			return "no real roots";
 		}
 		else if (discriminant == 0) {
+			//One repeated root.
 			return round2(-b/(2 * a)) + "";
 		}
 		else {
