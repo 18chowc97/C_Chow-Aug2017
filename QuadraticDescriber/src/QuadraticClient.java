@@ -110,5 +110,6 @@ public class QuadraticClient {
 				}
 			}
 		} while (test < 5);
+		console.close();
 	}
 }
