@@ -69,6 +69,7 @@ public class QuadraticClient {
 				try {
 					c = Double.parseDouble(C);
 					test++;
+					Quadratic.quadrDescriber(a, b, c);
 					break;
 				} catch (NumberFormatException exception) {
 					System.out.println("ERROR: Not a valid number: " + C);
@@ -86,17 +87,15 @@ public class QuadraticClient {
 					}
 				}
 			}
-			Quadratic.quadrDescriber(a, b, c);
-			System.out.println("Do you want to continue? (Type \"quit\" to exit.)");
-			input = console.nextLine().toLowerCase();
 			while (test == 3) {
-				if (input.equals("yes")) {
+				System.out.println("Do you want to continue? (Type \"quit\" to exit.)");
+				String inputf = console.nextLine().toLowerCase();
+				if (inputf.equals("yes")) {
 					test = 0;
-				} else if (input.equals("quit")) {
+				} else if (inputf.equals("quit")) {
 					test = 6;
 				} else {
 					System.out.println("Not a valid input. Try again.");
-					input = console.nextLine().toLowerCase();
 				}
 			}
 		} while (test < 5);
