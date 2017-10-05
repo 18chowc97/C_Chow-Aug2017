@@ -11,7 +11,7 @@ public class PairProgram {
 		System.out.println("Enter in your integers here. (Enter \"done\" once you are done entering numbers.)");
 		//Instead of asking for the number of values to enter, the user enters values until
 		//he/she enters "done", at which point the program stops taking values and calculates.
-		Scanner console = new Scanner(System.in);
+		Scanner console = new Scanner(System.in); 
 		String input = "";
 		int inputp = 0;
 		int evensum = 0;
@@ -47,6 +47,7 @@ public class PairProgram {
 					}
 				} catch (NumberFormatException exception) {
 					System.out.println("Invalid input. Try again");
+					//Catches if input is not an integer.
 				}
 			}
 
