@@ -10,14 +10,15 @@ public class QuadraticClient {
 		Scanner console = new Scanner(System.in);
 		double a = 0, b = 0, c = 0;
 		int test = 0;
-		String input = "";
 		System.out.println("Welcome to Quadratic Describer!");
 		do {
 			System.out.println("What are the values of a, b, and c?");
 			while (test == 0) {
 				System.out.print("a: ");
 				String A = console.nextLine();
+				//Uses nextLine to ensure that user cannot enter "1 2 1" as a valid input.
 				try {
+					//Checks if input is a double and not something else. 
 					a = Double.parseDouble(A);
 					if (a == 0) {
 						System.out.println("ERROR: It can't be a linear function! Try another value.");
@@ -25,19 +26,7 @@ public class QuadraticClient {
 						test++;
 					}
 				} catch (NumberFormatException exception) {
-					System.out.println("ERROR: Not a valid number: " + A);
-					while (true) {
-						System.out.println("Do you want to continue? (Type quit to end.)");
-						input = console.nextLine().toLowerCase();
-						if (input.equals("yes")) {
-							break;
-						} else if (input.equals("quit")) {
-							test = 5;
-							break;
-						} else {
-							System.out.println("Not a valid response.");
-						}
-					}
+					System.out.println("ERROR: Not a valid number: " + A +"\nTry again.");
 				}
 			}
 			while (test == 1) {
@@ -48,19 +37,7 @@ public class QuadraticClient {
 					test++;
 					break;
 				} catch (NumberFormatException exception) {
-					System.out.println("ERROR: Not a valid number: " + B);
-					while (true) {
-						System.out.println("Do you want to continue? (Type quit to end.)");
-						input = console.nextLine().toLowerCase();
-						if (input.contains("yes")) {
-							break;
-						} else if (input.contains("quit")) {
-							test = 5;
-							break;
-						} else {
-							System.out.println("Not a valid response.");
-						}
-					}
+					System.out.println("ERROR: Not a valid number: " + B +"\nTry again.");
 				}
 			}
 			while (test == 2) {
@@ -69,28 +46,16 @@ public class QuadraticClient {
 				try {
 					c = Double.parseDouble(C);
 					test++;
-					Quadratic.quadrDescriber(a, b, c);
+					System.out.println(Quadratic.quadrDescriber(a, b, c));
 					break;
 				} catch (NumberFormatException exception) {
-					System.out.println("ERROR: Not a valid number: " + C);
-					while (true) {
-						System.out.println("Do you want to continue? (Type quit to end.)");
-						input = console.nextLine().toLowerCase();
-						if (input.equals("yes")) {
-							break;
-						} else if (input.equals("quit")) {
-							test = 5;
-							break;
-						} else {
-							System.out.println("Not a valid response.");
-						}
-					}
+					System.out.println("ERROR: Not a valid number: " + C + "\nTry again.");
 				}
 			}
 			while (test == 3) {
 				System.out.println("Do you want to continue? (Type \"quit\" to exit.)");
 				String inputf = console.nextLine().toLowerCase();
-				if (inputf.equals("yes")) {
+				if (inputf.contains("yes")) {
 					test = 0;
 				} else if (inputf.equals("quit")) {
 					test = 6;

@@ -3,7 +3,9 @@
  * 9/22/17
  */
 public class Quadratic {
-	public static void quadrDescriber(double a, double b, double c) {
+	public static String quadrDescriber(double a, double b, double c) {
+		//New Version that Returns a String that describes a quadratic function
+		//by taking an input of three doubles that represent the quadratic coefficients.
 		String B = "";
 		String C = "";
 		if (b > 0) {
@@ -18,18 +20,18 @@ public class Quadratic {
 		else if(c<0){
 			C = " - " + absValue(c);
 		} //Formats the function correctly.
-		System.out.println("Description of Graph of :");
-		System.out.println("y = "+a+" x^2"+B+C);
+		String graphdesc = "Descripton of Graph of :\ny = "+a+" x^2"+B+C;
 		if(a < 0) {
-			System.out.println("Opens: Down");
+			graphdesc = graphdesc + "\nOpens: Down";
 		}
 		else {
-			System.out.println("Opens: Up");
+			graphdesc = graphdesc + "\nOpens: Up";
 		} // Checks which direction it opens.
-		System.out.println("Axis of Symmetry: x = " + round2(-b/(2*a)));
-		System.out.println("Vertex: " + vertex(a, b, c)); //Uses vertex method below.
-		System.out.println("X-Intercept(s): " + quadForm(a, b, c));
-		System.out.println("Y-Intercept: " + c);
+		String symaxis = "\nAxis of Symmetry: x = " + round2(-b/(2*a));
+		String vertex = "\nVertex: " + vertex(a, b, c); //Uses vertex method below.
+		String xintercept = "\nX-Intercept(s): " + quadForm(a, b, c);
+		String yintercept = "\nY-Intercept: " + c;
+		return graphdesc + symaxis + vertex + xintercept + yintercept;
 	}
 	public static String vertex(double a, double b, double c) {
 		double x = round2(-b/(2*a));
@@ -97,7 +99,7 @@ public class Quadratic {
 		}
 		double discriminant = discriminant(a, b, c);
 		if (discriminant < 0) {
-			return "no real roots";
+			return "no real roots / x-intercepts";
 		}
 		else if (discriminant == 0) {
 			return round2(-b/(2 * a)) + "";
@@ -106,4 +108,37 @@ public class Quadratic {
 			return round2((-b + sqrt(discriminant))/(2 * a)) + " and " + round2(((-b - sqrt(discriminant))/(2 * a)));
 		}
 	}
+	/*
+	public static void quadDescriber(double a, double b, double c) {
+		//Old Version that is a Void method. Find new version above.
+		//It's called quadDescriber now instead of quadrDescriber to avoid confusion. 
+		//This method takes three quadratic coefficients as doubles and prints out a graph description. 
+		String B = "";
+		String C = "";
+		if (b > 0) {
+			B = " + " + b + " x";
+		}
+		else if(b < 0){
+			B = " - " + absValue(b)+" x";
+		}
+		if (c > 0) {
+			C = " + " + c;
+		}
+		else if(c<0){
+			C = " - " + absValue(c);
+		} //Formats the function correctly.
+		System.out.println("Description of Graph of :");
+		System.out.println("y = "+a+" x^2"+B+C);
+		if(a < 0) {
+			System.out.println("Opens: Down");
+		}
+		else {
+			System.out.println("Opens: Up");
+		} // Checks which direction it opens.
+		System.out.println("Axis of Symmetry: x = " + round2(-b/(2*a)));
+		System.out.println("Vertex: " + vertex(a, b, c)); //Uses vertex method below.
+		System.out.println("X-Intercept(s): " + quadForm(a, b, c));
+		System.out.println("Y-Intercept: " + c);
+	}
+	*/
 }
