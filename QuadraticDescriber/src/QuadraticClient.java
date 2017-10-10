@@ -21,6 +21,7 @@ public class QuadraticClient {
 					//Checks if input is a double and not something else. 
 					a = Double.parseDouble(A);
 					if (a == 0) {
+						//Checks if input is linear function.
 						System.out.println("ERROR: It can't be a linear function! Try another value.");
 					} else {
 						test++;
@@ -33,6 +34,7 @@ public class QuadraticClient {
 				System.out.print("b: ");
 				String B = console.nextLine();
 				try {
+					//Checks for if second coefficient is a double.
 					b = Double.parseDouble(B);
 					test++;
 					break;
@@ -44,6 +46,7 @@ public class QuadraticClient {
 				System.out.print("c: ");
 				String C = console.nextLine();
 				try {
+					//Checks if third coefficient is a double value.
 					c = Double.parseDouble(C);
 					test++;
 					System.out.println(Quadratic.quadrDescriber(a, b, c));
@@ -54,10 +57,11 @@ public class QuadraticClient {
 			}
 			while (test == 3) {
 				System.out.println("Do you want to continue? (Type \"quit\" to exit.)");
-				String inputf = console.nextLine().toLowerCase();
-				if (inputf.contains("yes")) {
+				String finalcheck = console.nextLine().toLowerCase();
+				//Checks whether user wants to continue or exit the program.
+				if (finalcheck.contains("yes")) {
 					test = 0;
-				} else if (inputf.equals("quit")) {
+				} else if (finalcheck.equals("quit")) {
 					test = 6;
 				} else {
 					System.out.println("Not a valid input. Try again.");
