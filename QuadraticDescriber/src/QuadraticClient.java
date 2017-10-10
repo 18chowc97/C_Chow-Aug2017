@@ -49,6 +49,7 @@ public class QuadraticClient {
 					//Checks if third coefficient is a double value.
 					c = Double.parseDouble(C);
 					test++;
+					//Prints the string output of the quadrDescriber method.
 					System.out.println(Quadratic.quadrDescriber(a, b, c));
 					break;
 				} catch (NumberFormatException exception) {

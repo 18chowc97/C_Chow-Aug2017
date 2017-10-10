@@ -31,6 +31,7 @@ public class Quadratic {
 		String vertex = "\nVertex: " + vertex(a, b, c); //Uses vertex method below.
 		String xintercept = "\nX-Intercept(s): " + quadForm(a, b, c);
 		String yintercept = "\nY-Intercept: " + c;
+		//Returns graph description as a string value.
 		return graphdesc + symaxis + vertex + xintercept + yintercept;
 	}
 	public static String vertex(double a, double b, double c) {
@@ -108,11 +109,11 @@ public class Quadratic {
 			return round2((-b + sqrt(discriminant))/(2 * a)) + " and " + round2(((-b - sqrt(discriminant))/(2 * a)));
 		}
 	}
+	//Below is the Old Version of quadrDescriber that is a Void method. Find the new version above.
+			//It's called quadDescriber now instead of quadrDescriber to avoid confusion. 
+			//This method takes three quadratic coefficients as doubles and prints out a graph description. 
 	/*
 	public static void quadDescriber(double a, double b, double c) {
-		//Old Version that is a Void method. Find new version above.
-		//It's called quadDescriber now instead of quadrDescriber to avoid confusion. 
-		//This method takes three quadratic coefficients as doubles and prints out a graph description. 
 		String B = "";
 		String C = "";
 		if (b > 0) {
