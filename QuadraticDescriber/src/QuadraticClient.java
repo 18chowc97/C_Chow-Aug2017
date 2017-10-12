@@ -17,6 +17,8 @@ public class QuadraticClient {
 				System.out.print("a: ");
 				String A = console.nextLine();
 				//Uses nextLine to ensure that user cannot enter "1 2 1" as a valid input.
+				//If guaranteed that user will enter a double value, 
+				//program can use console.nextDouble instead, and skip the try-catch.
 				try {
 					//Checks if input is a double and not something else. 
 					a = Double.parseDouble(A);
