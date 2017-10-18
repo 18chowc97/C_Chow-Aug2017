@@ -12,13 +12,13 @@ public class QuadraticClient {
 		int test = 0;
 		System.out.println("Welcome to Quadratic Describer!");
 		do {
-			System.out.println("What are the values of a, b, and c?");
+			System.out.println("What are the values of a, b, and c?\n");
 			while (test == 0) {
 				System.out.print("a: ");
 				String A = console.nextLine();
-				//Uses nextLine to ensure that user cannot enter "1 2 1" as a valid input.
-				//If guaranteed that user will enter a double value, 
-				//program can use console.nextDouble instead, and skip the try-catch.
+				//Uses nextLine to ensure that user cannot enter something like "1 2 1" as a valid input.
+				//If it is guaranteed that user will enter a double value, 
+				//the program can use console.nextDouble instead, and skip the try-catch.
 				try {
 					//Checks if input is a double and not something else. 
 					a = Double.parseDouble(A);
@@ -39,7 +39,6 @@ public class QuadraticClient {
 					//Checks for if second coefficient is a double.
 					b = Double.parseDouble(B);
 					test++;
-					break;
 				} catch (NumberFormatException exception) {
 					System.out.println("ERROR: Not a valid number: " + B +"\nTry again.");
 				}
@@ -50,10 +49,9 @@ public class QuadraticClient {
 				try {
 					//Checks if third coefficient is a double value.
 					c = Double.parseDouble(C);
-					test++;
+					System.out.println("\n" + Quadratic.quadrDescriber(a, b, c));
 					//Prints the string output of the quadrDescriber method.
-					System.out.println(Quadratic.quadrDescriber(a, b, c));
-					break;
+					test++;
 				} catch (NumberFormatException exception) {
 					System.out.println("ERROR: Not a valid number: " + C + "\nTry again.");
 				}

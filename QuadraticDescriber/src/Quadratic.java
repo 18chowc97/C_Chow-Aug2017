@@ -28,13 +28,14 @@ public class Quadratic {
 		else {
 			graphdesc = graphdesc + "\nOpens: Up";
 		} // Checks which direction it opens.
-		String symaxis = "\nAxis of Symmetry: x = " + round2(-b/(2*a));
+		String axisOfSymmetry = "\nAxis of Symmetry: " + round2(-b/(2*a));
 		String vertex = "\nVertex: " + vertex(a, b, c); //Uses vertex method below.
 		String xintercept = "\nX-Intercept(s): " + quadForm(a, b, c);
 		String yintercept = "\nY-Intercept: " + c + "\n";
 		//Returns graph description as a string value.
-		return graphdesc + symaxis + vertex + xintercept + yintercept;
+		return graphdesc + axisOfSymmetry + vertex + xintercept + yintercept;
 	}
+	//Other methods used in quadrDescriber below.
 	public static String vertex(double a, double b, double c) {
 		//This method takes three double values as coefficients of a quadratic
 		//and returns a String representation of the vertex.
@@ -96,12 +97,9 @@ public class Quadratic {
 	}
 	public static String quadForm(double a, double b, double c) {
 		// This method takes the coefficient values of a quadratic and returns its roots.
-		if (a==0) {
-			throw new IllegalArgumentException ("not a quadratic equation");
-		}
 		double discriminant = discriminant(a, b, c);
 		if (discriminant < 0) {
-			return "no real roots / x-intercepts";
+			return "None";
 		}
 		else if (discriminant == 0) {
 			return round2(-b/(2 * a)) + "";
