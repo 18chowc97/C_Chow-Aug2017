@@ -63,4 +63,12 @@ public class PairProgram {
 		}
 		console.close();
 	}
+	/*
+	 * public static void mystery(int x) { 
+	 * System.out.print(x%10); 
+	 * if(x/10!=0) {
+	 * mystery(x/10); System.out.println(); 
+	 * } 
+	 * System.out.print(x%10); }
+	 */
 }
