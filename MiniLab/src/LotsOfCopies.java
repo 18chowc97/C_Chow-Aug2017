@@ -2,6 +2,7 @@ import java.util.Arrays;
 public class LotsOfCopies {
 	public static void main(String[] args) {
 		int num = 7;
+		int[] temp = null;
 		String strMain = "APCS";
 		int[] arrMain = {1, 2, 3, 4 ,5};
 		changeMe(num, strMain, arrMain);
@@ -18,6 +19,10 @@ public class LotsOfCopies {
 		int[] first = {1,2};
 		int[] second = {3, 4};
 		change(first, second);
+		System.out.println(Arrays.toString(first) + ", "+ Arrays.toString(second));
+		temp = first;
+		first = second;
+		second = temp;
 		System.out.println(Arrays.toString(first) + ", "+ Arrays.toString(second));
 	}
 	public static void changeMe(int x, String str, int[] arr) {
