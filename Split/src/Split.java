@@ -63,7 +63,7 @@ public class Split {
 	}
 
 	public static void main(String[] args) {
-		String word = "breadbreadlettucetomatobaconmayohamcheesestuffbreadbreadhambreadhambreadbread";
+		String word = "breadstuffbreadlettucetomatobaconmayohamcheesestuffbreadbreadhambreadhambreadbread";
 		String spaceWord = "a b bread c bread bread bread d bread e bread f bread bread";
 		String[] arrayB = word.split("bread");
 		String[] arrayS = spaceWord.split(" ");
