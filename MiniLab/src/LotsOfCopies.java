@@ -1,3 +1,6 @@
+//Carl Chow
+//This method is a lab that tests arrays.
+//due 11/2/17
 import java.util.Arrays;
 public class LotsOfCopies {
 	public static void main(String[] args) {
