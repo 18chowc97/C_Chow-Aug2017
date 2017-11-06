@@ -3,6 +3,7 @@
 //This is a lab that contains methods to manipulate certain characteristics of the input arrays.
 import java.util.*;
 public class ArrayLab3 {
+	// Comments outlined in document
 	public static int[] sum(int[] arr1, int[] arr2) {
 		int[] arrSum = new int[arr1.length];
 		for (int i = 0; i < arr1.length; i++) {
