@@ -1,3 +1,6 @@
+//Carl Chow
+//This class takes fractions and performs operations on them. 
+//November 7, 2017
 package fracCalc;
 import java.util.*;
 public class FracCalc {
