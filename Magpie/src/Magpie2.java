@@ -12,7 +12,10 @@ public class Magpie2 {
 	 * returns a response based on given rules
 	 */
 	public String getResponse(String statementc) {
-		String statement = statementc.toLowerCase();
+		String statement = statementc.toLowerCase().trim();
+		if(statement.length()<=0) {
+			return "Type something please.";
+		}
 		String response = "";
 		if (findKeyword(statement,"no",0) >= 0) {
 			response = "Why so negative?";
