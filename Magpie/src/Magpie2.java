@@ -14,27 +14,31 @@ public class Magpie2 {
 	public String getResponse(String statementc) {
 		String statement = statementc.toLowerCase();
 		String response = "";
-		if (statement.indexOf("no") >= 0) {
+		if (findKeyword(statement,"no",0) >= 0) {
 			response = "Why so negative?";
-		} else if (statement.indexOf("mother") >= 0
-				|| statement.indexOf("father") >= 0
-				|| statement.indexOf("sister") >= 0
-				|| statement.indexOf("brother") >= 0) {
+		} else if (findKeyword(statement,"mother",0) >= 0
+				|| findKeyword(statement,"father",0) >= 0
+				|| findKeyword(statement,"sister",0) >= 0
+				|| findKeyword(statement,"brother",0) >= 0) {
 			response = "Tell me more about your family.";
 		} 
-		else if(statement.indexOf("dreyer") > -1 
-				|| statement.indexOf("knox") > -1
-				|| statement.indexOf("lamont") > -1){
+		else if(findKeyword(statement,"dreyer",0) > -1 
+				|| findKeyword(statement,"knox",0) > -1
+				|| findKeyword(statement,"lamont",0) > -1){
 			response = "Sounds like an excellent teacher";
 		}
-		else if(statement.indexOf("school") > -1) {
+		else if(findKeyword(statement,"school",0) > -1) {
 			response = "Don't mention that around here.";
 		}
-		else if(statement.indexOf("where") > -1
-			|| statement.indexOf("when") > -1
-			|| statement.indexOf("why") > -1){
-				response = "Google it";
+		else if(findKeyword(statement,"where",0) > -1
+			|| findKeyword(statement,"when",0) > -1
+			|| findKeyword(statement,"why",0) > -1){
+				response = "Google it.";
 			}
+		else if(findKeyword(statement,"united states",0) >= 0
+				|| findKeyword(statement,"russia",0) >= 0) {
+			response = "Let's not get political.";
+		}
 		else {
 			response = getRandomResponse();
 		}
@@ -67,4 +71,30 @@ public class Magpie2 {
 
 		return response;
 	}
+	private int findKeyword(String statement, String goal, int startPos)
+	{
+	String phrase = statement.trim();
+	int psn = phrase.toLowerCase().indexOf(goal.toLowerCase(), startPos);
+	while (psn >= 0)
+	{
+	String before = " ", after = " ";
+	if (psn > 0)
+	{
+		before = phrase.substring (psn - 1, psn).toLowerCase();
+	}
+	if (psn + goal.length() < phrase.length())
+	{
+	after = phrase.substring(psn + goal.length(),
+	psn + goal.length() + 1).toLowerCase();
+	}
+	/* determine the values of psn, before, and after at this point in the method. */
+	if (before.equals (" ")  &&  after.equals(" "))
+	{
+		return psn;
+	}
+		psn = phrase.indexOf(goal.toLowerCase(), psn + 1);
+	}
+	return -1;
+	}
+
 }

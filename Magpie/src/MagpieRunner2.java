@@ -13,8 +13,8 @@ public class MagpieRunner2 {
 		Scanner in = new Scanner(System.in);
 		String statement = in.nextLine();
 
-		while (!statement.equals("Bye")) {
-			if(statement.length()>1) {
+		while (!statement.toLowerCase().equals("bye")) {
+			if(statement.length()>0) {
 				System.out.println(maggie.getResponse(statement));
 			}
 			else {
@@ -22,6 +22,7 @@ public class MagpieRunner2 {
 			}
 			statement = in.nextLine();
 		}
+		in.close();
 	}
 
 }
