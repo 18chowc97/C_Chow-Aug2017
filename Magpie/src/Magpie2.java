@@ -1,4 +1,6 @@
-
+//Carl Chow
+//This is a Chatbot class with statements that return based on keywords.
+//11/8/17
 public class Magpie2 {
 
 	//Get a default greeting and return a greeting	
@@ -74,6 +76,7 @@ public class Magpie2 {
 
 		return response;
 	}
+	//Copied from document
 	private int findKeyword(String statement, String goal, int startPos)
 	{
 	String phrase = statement.trim();
