@@ -31,18 +31,7 @@ public class FracCalc {
 	// The function should return the result of the fraction after it has been
 	// calculated
 	// e.g. return ==> "1_1/4"
-	/*
-	 * public static String produceAnswer(String input) { // TODO: Implement this
-	 * function to produce the solution to the input 
-	 * String whole = "0"; String
-	 * numerator = "0"; String denominator = "1"; String[] splitInput =
-	 * input.split(" "); String[] secondFraction = splitInput[2].split("_");
-	 * String[] splitFraction = secondFraction[secondFraction.length -
-	 * 1].split("/"); if(secondFraction.length == splitFraction.length) { whole =
-	 * secondFraction[0]; } if(splitFraction.length == 2) { numerator =
-	 * splitFraction[0]; denominator = splitFraction[1]; } return
-	 * "whole:"+whole+" numerator:"+numerator+" denominator:"+denominator; }
-	 */
+
 	public static String produceAnswer(String input) {
 		// TODO: Implement this function to produce the solution to the input
 		String[] splitInput = input.split(" ");
@@ -51,6 +40,7 @@ public class FracCalc {
 		}
 		int[] answerArray = splitPart(splitInput[0]);
 		for(int i = 0; i < splitInput.length - 2; i+=2) {
+			// Places old answerArray into new answerArray and operates on it.
 			answerArray = operate(answerArray, splitInput[i+1], splitPart(splitInput[i+2]));
 			if(answerArray[0] == 1) {
 				return "ERROR: Cannot have zero in a denominator.";
