@@ -34,9 +34,25 @@ public class FracCalc {
 
 	public static String produceAnswer(String input) {
 		// TODO: Implement this function to produce the solution to the input
+		//Stuff at the top is mostly error handling.
+		if (input.contains("(") || input.contains(")")) {
+			return "ERROR: We don't do parentheses.";
+		}
 		String[] splitInput = input.split(" ");
+		int testString = 0;
 		if (splitInput.length < 3) {
 			return "ERROR: Make sure to put spaces between operators and numbers.";
+		}
+		for(int i = 1; i < splitInput.length; i++) {
+			if (splitInput[i].equals("+")
+					||splitInput[i].equals("-")
+					||splitInput[i].equals("*")
+					||splitInput[i].equals("/")) {
+				testString++;
+			}
+		}
+		if (splitInput.length - 1 != 2 * testString) {
+			return "ERROR: Invalid Operations. Make sure numbers have appropriate operators between them.";
 		}
 		int[] answerArray = splitPart(splitInput[0]);
 		for(int i = 0; i < splitInput.length - 2; i+=2) {
@@ -44,9 +60,6 @@ public class FracCalc {
 			answerArray = operate(answerArray, splitInput[i+1], splitPart(splitInput[i+2]));
 			if(answerArray[0] == 1) {
 				return "ERROR: Cannot have zero in a denominator.";
-			}
-			if(answerArray[0] == 2) {
-				return "ERROR: Invalid Operation.";
 			}
 		}
 		if(answerArray[1] == 0) {
@@ -61,13 +74,13 @@ public class FracCalc {
 		int[] splitArray = { 0, 0, 1 };
 		String[] secondFraction = input.split("_");
 		String[] splitFraction = secondFraction[secondFraction.length - 1].split("/");
-		if (secondFraction.length == splitFraction.length) {
-			splitArray[0] = Integer.parseInt(secondFraction[0]);
-		}
-		if (splitFraction.length == 2) {
-			splitArray[1] = Integer.parseInt(splitFraction[0]);
-			splitArray[2] = Integer.parseInt(splitFraction[1]);
-		}
+			if (secondFraction.length == splitFraction.length) {
+				splitArray[0] = Integer.parseInt(secondFraction[0]);
+			}
+			if (splitFraction.length == 2) {
+				splitArray[1] = Integer.parseInt(splitFraction[0]);
+				splitArray[2] = Integer.parseInt(splitFraction[1]);
+			}
 		return splitArray;
 	}
 	public static int[] operate(int[]operand1, String operation, int[] operand2) {
@@ -75,6 +88,10 @@ public class FracCalc {
 		int[] answer = new int[3];
 		if(operand1[2] == 0 || operand2[2] == 0) {
 			answer[0] = 1;
+			return answer;
+		}
+		if(operand1[2] == -1 || operand2[2] == -1) {
+			answer[0] = 2;
 			return answer;
 		}
 		int numerator1 = (absValue(operand1[0] * operand1[2]) + operand1[1]);
@@ -102,10 +119,6 @@ public class FracCalc {
 			}
 			answer[2] = operand1[2] * numerator2;
 			answer[1] = numerator1 * operand2[2];
-		}
-		else {
-			answer [0] = 2;
-			return answer;
 		}
 		int gcf = gcf(absValue(answer[1]), absValue(answer[2]));
 		answer[1] /= gcf;
