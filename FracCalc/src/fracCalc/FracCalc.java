@@ -61,6 +61,9 @@ public class FracCalc {
 			if(answerArray[0] == 1) {
 				return "ERROR: Cannot have zero in a denominator.";
 			}
+			if (answerArray[0] == 2) {
+				return "ERROR: Incorrect Formatting";
+			}
 		}
 		if(answerArray[1] == 0) {
 			return "0";
@@ -71,9 +74,10 @@ public class FracCalc {
 		return toMixedNum(answerArray[1], answerArray[2]);
 	}
 	public static int[] splitPart(String input) {
-		int[] splitArray = { 0, 0, 1 };
+		int[] splitArray = { 0, 0, 1};
 		String[] secondFraction = input.split("_");
 		String[] splitFraction = secondFraction[secondFraction.length - 1].split("/");
+		try {
 			if (secondFraction.length == splitFraction.length) {
 				splitArray[0] = Integer.parseInt(secondFraction[0]);
 			}
@@ -81,26 +85,33 @@ public class FracCalc {
 				splitArray[1] = Integer.parseInt(splitFraction[0]);
 				splitArray[2] = Integer.parseInt(splitFraction[1]);
 			}
+			else {
+				Integer.parseInt(input);
+			}
+		}catch (NumberFormatException e) {
+			splitArray = null;
+		}
 		return splitArray;
 	}
 	public static int[] operate(int[]operand1, String operation, int[] operand2) {
 		//Actually does the operation ( +, -, *, / ) to the String.
 		int[] answer = new int[3];
-		if(operand1[2] == 0 || operand2[2] == 0) {
-			answer[0] = 1;
-			return answer;
-		}
-		if(operand1[2] == -1 || operand2[2] == -1) {
+		if (Arrays.equals(operand1, null) || Arrays.equals(operand2, null)) {
 			answer[0] = 2;
 			return answer;
 		}
-		int numerator1 = (absValue(operand1[0] * operand1[2]) + operand1[1]);
-		int numerator2 = (absValue(operand2[0] * operand2[2]) + operand2[1]);
-		if(operand1[0] < 0) {
-			numerator1 *= -1;
+		if(operand1[2] == 0 || operand2[2] == 0) {
+			answer[0] = 1;
 		}
-		if(operand2[0] < 0) {
-			numerator2 *= -1;
+		int numerator1 = (absValue(operand1[0] * operand1[2]) + absValue(operand1[1]));
+		int numerator2 = (absValue(operand2[0] * operand2[2]) + absValue(operand2[1]));
+		for(int i = 0; i < 2; i++) {
+			if(operand1[i] < 0) {
+				numerator1 *= -1;
+			}
+			if(operand2[i] < 0) {
+				numerator2 *= -1;
+			}
 		}
 		answer[2] = operand1[2] * operand2[2];
 		if(operation.equals("+")) {
@@ -130,19 +141,11 @@ public class FracCalc {
 		// It is also possible to use the Euclidean Algorithm.
 		int gcf = 1;
 		for (int i = 1; i<= min(smallerint, greaterint); i++) {
-			if (isDivisibleBy(greaterint,i) && isDivisibleBy(smallerint,i)) {
+			if (greaterint % i == 0 && smallerint % i == 0) {
 				gcf = i;
 			}
 		}
 		return gcf;
-	}
-	public static boolean isDivisibleBy(int dividend, int divisor){
-		if (max(absValue(dividend), absValue(divisor)) % min(absValue(dividend), absValue(divisor)) == 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 	public static int absValue (int number) {
 		// This method takes a double value and returns the absolute value of that double. 
