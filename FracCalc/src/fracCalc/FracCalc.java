@@ -36,12 +36,13 @@ public class FracCalc {
 		// TODO: Implement this function to produce the solution to the input
 		//Stuff at the top is mostly error handling.
 		if (input.contains("(") || input.contains(")")) {
+			// We don't do parentheses, or PEMDAS.
 			return "ERROR: We don't do parentheses.";
 		}
 		String[] splitInput = input.split(" ");
 		int testString = 0;
 		if (splitInput.length < 3) {
-			return "ERROR: Make sure to put spaces between operators and numbers.";
+			return "ERROR: Make sure to put spaces between at least one operator and two numbers.";
 		}
 		for(int i = 1; i < splitInput.length; i++) {
 			if (splitInput[i].equals("+")
@@ -54,6 +55,7 @@ public class FracCalc {
 		if (splitInput.length - 1 != 2 * testString) {
 			return "ERROR: Invalid Operations. Make sure numbers have appropriate operators between them.";
 		}
+		// Splits the first operator into whole, numerator, and denominator parts. 
 		int[] answerArray = splitPart(splitInput[0]);
 		for(int i = 0; i < splitInput.length - 2; i+=2) {
 			// Places old answerArray into new answerArray and operates on it.
@@ -74,10 +76,13 @@ public class FracCalc {
 		return toMixedNum(answerArray[1], answerArray[2]);
 	}
 	public static int[] splitPart(String input) {
-		int[] splitArray = { 0, 0, 1};
+		int[] splitArray = { 0, 0, 1 };
 		String[] secondFraction = input.split("_");
 		String[] splitFraction = secondFraction[secondFraction.length - 1].split("/");
 		try {
+			if(secondFraction.length > 2) {
+				Integer.parseInt(input);
+			}
 			if (secondFraction.length == splitFraction.length) {
 				splitArray[0] = Integer.parseInt(secondFraction[0]);
 			}
@@ -94,7 +99,7 @@ public class FracCalc {
 		return splitArray;
 	}
 	public static int[] operate(int[]operand1, String operation, int[] operand2) {
-		//Actually does the operation ( +, -, *, / ) to the String.
+		//Actually does the operations ( +, -, *, / ) to the String.
 		int[] answer = new int[3];
 		if (Arrays.equals(operand1, null) || Arrays.equals(operand2, null)) {
 			answer[0] = 2;
@@ -185,7 +190,7 @@ public class FracCalc {
 			mixednumber = (negativecheck * absValue(numerator)) + "/" + absValue(denominator);
 		}
 		if(remaindernumer == 0) {
-			return wholenumber + "";
+			mixednumber = wholenumber + "";
 		}
 		return mixednumber;
 	}
