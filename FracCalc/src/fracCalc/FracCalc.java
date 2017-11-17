@@ -10,7 +10,7 @@ public class FracCalc {
 	public static void main(String[] args) {
 		// TODO: Read the input from the user and call produceAnswer with an equation
 		Scanner in = new Scanner(System.in);
-		System.out.println("Please enter the String of fractions, with spaces between basic operator and number.");
+		System.out.println("Enter a number String with spaces between basic operators and numbers.");
 		String input = in.nextLine();
 		while (!input.equals("quit")) {
 			System.out.println(produceAnswer(input));
@@ -18,6 +18,7 @@ public class FracCalc {
 			input = in.nextLine();
 		}
 		in.close();
+		System.out.println("Done.");
 	}
 
 	// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to
@@ -34,7 +35,7 @@ public class FracCalc {
 
 	public static String produceAnswer(String input) {
 		// TODO: Implement this function to produce the solution to the input
-		//Stuff at the top is mostly error handling.
+		//Stuff at the top is mostly error handling, for the extra credit Checkpoints.
 		if (input.contains("(") || input.contains(")")) {
 			// We don't do parentheses, or PEMDAS.
 			return "ERROR: We don't do parentheses.";
@@ -53,14 +54,16 @@ public class FracCalc {
 			}
 		}
 		if (splitInput.length - 1 != 2 * testString) {
-			return "ERROR: Invalid Operations. Make sure numbers have appropriate operators between them.";
+			// Checks if number of fractions matches the number of operators.
+			return "ERROR: Invalid Operations. Enter numbers with appropriate operators between them.";
 		}
 		// Splits the first operator into whole, numerator, and denominator parts. 
 		int[] answerArray = splitPart(splitInput[0]);
 		for(int i = 0; i < splitInput.length - 2; i+=2) {
-			// Places old answerArray into new answerArray and operates on it.
+			// Places old answerArray into new answerArray and operates on it (for multiple operations).
 			answerArray = operate(answerArray, splitInput[i+1], splitPart(splitInput[i+2]));
 			if(answerArray[0] == 1) {
+				//Error checking, answerArray[0] is an element that shows if something went wrong.
 				return "ERROR: Cannot have zero in a denominator.";
 			}
 			if (answerArray[0] == 2) {
@@ -76,10 +79,13 @@ public class FracCalc {
 		return toMixedNum(answerArray[1], answerArray[2]);
 	}
 	public static int[] splitPart(String input) {
+		//Takes one of the fraction inputs and converts its contents to an array.
 		int[] splitArray = { 0, 0, 1 };
+		//Splits once by "_", then by "/".
 		String[] secondFraction = input.split("_");
 		String[] splitFraction = secondFraction[secondFraction.length - 1].split("/");
 		try {
+			//Error handling, such as if a person types "#4 + 4", it will catch the exception. 
 			if(secondFraction.length > 2) {
 				Integer.parseInt(input);
 			}
@@ -111,6 +117,7 @@ public class FracCalc {
 		int numerator1 = (absValue(operand1[0] * operand1[2]) + absValue(operand1[1]));
 		int numerator2 = (absValue(operand2[0] * operand2[2]) + absValue(operand2[1]));
 		for(int i = 0; i < 2; i++) {
+			//Checking for negatives using this for loop. 
 			if(operand1[i] < 0) {
 				numerator1 *= -1;
 			}
@@ -130,6 +137,7 @@ public class FracCalc {
 		}
 		else if(operation.equals("/")) {
 			if(operand2[1] == 0 && operand2[0] == 0) {
+				//If dividing by zero, eventually returns an error message. 
 				answer[0] = 1;
 				return answer;
 			}
