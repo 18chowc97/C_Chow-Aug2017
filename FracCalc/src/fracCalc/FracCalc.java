@@ -70,11 +70,11 @@ public class FracCalc {
 				return "ERROR: Incorrect Formatting";
 			}
 		}
-		if(answerArray[1] == 0) {
-			return "0";
-		}
 		if (answerArray[2] == 1) {
 			return answerArray[1] + "";
+		}
+		if (answerArray[1] == 0) {
+			return "0";
 		}
 		return toMixedNum(answerArray[1], answerArray[2]);
 	}
@@ -125,12 +125,13 @@ public class FracCalc {
 				numerator2 *= -1;
 			}
 		}
+		if (operation.equals("-")) {
+			numerator2 *= -1;
+			operation = "+";
+		}
 		answer[2] = operand1[2] * operand2[2];
 		if(operation.equals("+")) {
 			answer[1] = (numerator1 * operand2[2]) + (numerator2 * operand1[2]);
-		}
-		else if(operation.equals("-")) {
-			answer[1] = (numerator1 * operand2[2]) - (numerator2 * operand1[2]);
 		}
 		else if(operation.equals("*")) {
 			answer[1] = numerator1 * numerator2;
@@ -139,7 +140,6 @@ public class FracCalc {
 			if(operand2[1] == 0 && operand2[0] == 0) {
 				//If dividing by zero, eventually returns an error message. 
 				answer[0] = 1;
-				return answer;
 			}
 			answer[2] = operand1[2] * numerator2;
 			answer[1] = numerator1 * operand2[2];
