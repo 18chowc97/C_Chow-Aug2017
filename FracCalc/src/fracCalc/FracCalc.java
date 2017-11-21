@@ -25,10 +25,6 @@ public class FracCalc {
 
 	public static String produceAnswer(String input) {
 		// TODO: Implement this function to produce the solution to the input
-		if (input.contains("(") || input.contains(")")) {
-			// We don't do parentheses, or PEMDAS.
-			return "ERROR: We don't do parentheses.";
-		}
 		String[] splitInput = input.split(" ");
 		int testString = 0;
 		if (splitInput.length < 3) {
@@ -119,8 +115,7 @@ public class FracCalc {
 			//If zero in the denominator, turn answer[0], the "error checker" from 0 to 1.
 			answer[0] = 1;
 		}
-		if((operand1[0] != 0 && (operand1[1] < 0 || operand1[2] < 0)) 
-			|| (operand2[0] != 0 && (operand2[1] < 0 || operand2[2] < 0))){
+		if((operand1[0] != 0 && (operand1[1] < 0 || operand1[2] < 0)) || (operand2[0] != 0 && (operand2[1] < 0 || operand2[2] < 0))){
 			// If an operand is a mixed number formatted incorrectly, change answer[0] to 2.
 			answer[0] = 2;
 		}
