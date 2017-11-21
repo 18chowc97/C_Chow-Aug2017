@@ -8,7 +8,6 @@ import java.util.*;
 public class FracCalc {
 
 	public static void main(String[] args) {
-		// TODO: Read the input from the user and call produceAnswer with an equation
 		Scanner in = new Scanner(System.in);
 		System.out.println("Enter a number String with spaces between basic operators and numbers.");
 		String input = in.nextLine();
@@ -21,21 +20,11 @@ public class FracCalc {
 		System.out.println("Done.");
 	}
 
-	// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to
-	// test your code
-	// This function takes a String 'input' and produces the result
-	//
-	// input is a fraction string that needs to be evaluated. For your program, this
-	// will be the user input.
-	// e.g. input ==> "1/2 + 3/4"
-	//
-	// The function should return the result of the fraction after it has been
-	// calculated
-	// e.g. return ==> "1_1/4"
+	// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to test your code.
+	// e.g. String input ==> "1/2 + 3/4" e.g. return ==> "1_1/4"
 
 	public static String produceAnswer(String input) {
 		// TODO: Implement this function to produce the solution to the input
-		//Stuff at the top is mostly error handling, for the extra credit Checkpoints.
 		if (input.contains("(") || input.contains(")")) {
 			// We don't do parentheses, or PEMDAS.
 			return "ERROR: We don't do parentheses.";
@@ -43,34 +32,37 @@ public class FracCalc {
 		String[] splitInput = input.split(" ");
 		int testString = 0;
 		if (splitInput.length < 3) {
+			// Checks if user inputed appropriate spacing. 
 			return "ERROR: Make sure to put spaces between at least one operator and two numbers.";
 		}
 		for(int i = 1; i < splitInput.length; i++) {
-			if (splitInput[i].equals("+")
-					||splitInput[i].equals("-")
-					||splitInput[i].equals("*")
-					||splitInput[i].equals("/")) {
+			if (splitInput[i].equals("+") ||splitInput[i].equals("-") ||splitInput[i].equals("*") ||splitInput[i].equals("/")) {
 				testString++;
 			}
 		}
 		if (splitInput.length - 1 != 2 * testString) {
-			// Checks if number of fractions matches the number of operators.
+			// Error Handling, for some weird input like "12 12 + 12".
+			// Checks if number of fractions matches the number of operators. (#operators = #fractions - 1)
 			return "ERROR: Invalid Operations. Enter numbers with appropriate operators between them.";
 		}
 		// Splits the first operator into whole, numerator, and denominator parts. 
 		int[] answerArray = splitPart(splitInput[0]);
 		for(int i = 0; i < splitInput.length - 2; i+=2) {
-			// Places old answerArray into new answerArray and operates on it (for multiple operations).
+			// Places old answerArray into new answerArray and operates on it (permits multiple operations).
 			answerArray = operate(answerArray, splitInput[i+1], splitPart(splitInput[i+2]));
-			if(answerArray[0] == 1) {
-				//Error checking, answerArray[0] is an element that shows if something went wrong.
-				return "ERROR: Cannot have zero in a denominator.";
-			}
-			if (answerArray[0] == 2) {
+			if (Arrays.equals(answerArray, null)) {
 				return "ERROR: Incorrect Formatting";
 			}
+			//Error checking, answerArray[0] is an element that checks if something went wrong.
+			if(answerArray[0] == 1) {
+				return "ERROR: Cannot have zero in a denominator.";
+			}
+			if(answerArray[0] == 2) {
+				return "ERROR: If you have a mixed number, the fractional part should not be written with negatives.";
+			}
 		}
-		if (answerArray[2] == 1) {
+		if (answerArray[2] == 1) { 
+			//Formats the Strings correctly, e.g. 0 instead of 0/1 or 12 instead of 12/1.
 			return answerArray[1] + "";
 		}
 		if (answerArray[1] == 0) {
@@ -81,14 +73,17 @@ public class FracCalc {
 	public static int[] splitPart(String input) {
 		//Takes one of the fraction inputs and converts its contents to an array.
 		int[] splitArray = { 0, 0, 1 };
-		//Splits once by "_", then by "/".
 		String[] secondFraction = input.split("_");
 		String[] splitFraction = secondFraction[secondFraction.length - 1].split("/");
+		//Splits once by "_", then by "/".
 		try {
-			//Error handling, such as if a person types "#4 + 4", it will catch the exception. 
+			//Error handling erroneous inputs, such as if a person types "#4 + $5", the program will catch the exception. 
+			//If error handling removed, try-catch is not needed, since we'd assume the user formats the input correctly.
 			if(secondFraction.length > 2) {
+				//If person inputs more than one "_" in a row, throw an exception.
 				Integer.parseInt(input);
 			}
+			//Places appropriate integers into the fraction array.
 			if (secondFraction.length == splitFraction.length) {
 				splitArray[0] = Integer.parseInt(secondFraction[0]);
 			}
@@ -106,32 +101,38 @@ public class FracCalc {
 	}
 	public static int[] operate(int[]operand1, String operation, int[] operand2) {
 		//Actually does the operations ( +, -, *, / ) to the String.
-		int[] answer = new int[3];
 		if (Arrays.equals(operand1, null) || Arrays.equals(operand2, null)) {
-			answer[0] = 2;
-			return answer;
+			//Here, a null array is code for something that went wrong, and the program throws an error message.
+			return null;
 		}
+		int numerator1 = absValue(operand1[0] * operand1[2]) + operand1[1];
+		int numerator2 = absValue(operand2[0] * operand2[2]) + operand2[1];
+		//Checking if inputed numbers are negative or not.  
+		if(operand1[0] < 0) {
+			numerator1 *= -1;
+		}
+		if(operand2[0] < 0) {
+			numerator2 *= -1;
+		}
+		int[] answer = { 0, numerator1 * operand2[2], operand1[2] * operand2[2] };
 		if(operand1[2] == 0 || operand2[2] == 0) {
+			//If zero in the denominator, turn answer[0], the "error checker" from 0 to 1.
 			answer[0] = 1;
 		}
-		int numerator1 = (absValue(operand1[0] * operand1[2]) + absValue(operand1[1]));
-		int numerator2 = (absValue(operand2[0] * operand2[2]) + absValue(operand2[1]));
-		for(int i = 0; i < 2; i++) {
-			//Checking for negatives using this for loop. 
-			if(operand1[i] < 0) {
-				numerator1 *= -1;
-			}
-			if(operand2[i] < 0) {
-				numerator2 *= -1;
-			}
+		if((operand1[0] != 0 && (operand1[1] < 0 || operand1[2] < 0)) 
+			|| (operand2[0] != 0 && (operand2[1] < 0 || operand2[2] < 0))){
+			// If an operand is a mixed number formatted incorrectly, change answer[0] to 2.
+			answer[0] = 2;
 		}
+		// Can split into two methods (+ and *), but here is more compact because there are some common 
+		// calculations that can be moved out of the if statements for efficiency.
 		if (operation.equals("-")) {
+			//Changes second operand to negative and does the addition operation.
 			numerator2 *= -1;
 			operation = "+";
 		}
-		answer[2] = operand1[2] * operand2[2];
 		if(operation.equals("+")) {
-			answer[1] = (numerator1 * operand2[2]) + (numerator2 * operand1[2]);
+			answer[1] += (numerator2 * operand1[2]);
 		}
 		else if(operation.equals("*")) {
 			answer[1] = numerator1 * numerator2;
@@ -142,16 +143,15 @@ public class FracCalc {
 				answer[0] = 1;
 			}
 			answer[2] = operand1[2] * numerator2;
-			answer[1] = numerator1 * operand2[2];
 		}
 		int gcf = gcf(absValue(answer[1]), absValue(answer[2]));
 		answer[1] /= gcf;
 		answer[2] /= gcf;
 		return answer;
 	}
+	// Below are Helper Methods from Calculate.
 	public static int gcf(int greaterint, int smallerint) {
 		//This method takes two positive integers and returns the greatest common factor (divisor).
-		// It is also possible to use the Euclidean Algorithm.
 		int gcf = 1;
 		for (int i = 1; i<= min(smallerint, greaterint); i++) {
 			if (greaterint % i == 0 && smallerint % i == 0) {
@@ -202,4 +202,5 @@ public class FracCalc {
 		}
 		return mixednumber;
 	}
+	//Wow, a third of this was comments and error checking.
 }
