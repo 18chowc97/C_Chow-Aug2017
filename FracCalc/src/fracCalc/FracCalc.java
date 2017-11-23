@@ -26,20 +26,16 @@ public class FracCalc {
 	public static String produceAnswer(String input) {
 		// TODO: Implement this function to produce the solution to the input
 		String[] splitInput = input.split(" ");
-		int testString = 0;
-		if (splitInput.length < 3) {
+		if (splitInput.length < 3 || splitInput[0].equals("")) {
 			// Checks if user inputed appropriate spacing. 
-			return "ERROR: Make sure to put spaces between at least one operator and two numbers.";
+			return "ERROR: Make sure to put spaces only between at least one operator and two numbers.";
 		}
-		for(int i = 1; i < splitInput.length; i++) {
-			if (splitInput[i].equals("+") ||splitInput[i].equals("-") ||splitInput[i].equals("*") ||splitInput[i].equals("/")) {
-				testString++;
+		for(int i = 1; i < splitInput.length - 1; i+=2) {
+			if (!splitInput[i].equals("+") &&!splitInput[i].equals("-") &&!splitInput[i].equals("*") &&!splitInput[i].equals("/")) {
+				// Error Handling, for some weird input like "12 12 + 12".
+				// Checks if fractions have operators in between them. 
+				return "ERROR: Invalid Operations. Please enter numbers with appropriate operators between them.";
 			}
-		}
-		if (splitInput.length - 1 != 2 * testString) {
-			// Error Handling, for some weird input like "12 12 + 12".
-			// Checks if number of fractions matches the number of operators. (#operators = #fractions - 1)
-			return "ERROR: Invalid Operations. Enter numbers with appropriate operators between them.";
 		}
 		// Splits the first operator into whole, numerator, and denominator parts. 
 		int[] answerArray = splitPart(splitInput[0]);
@@ -57,12 +53,9 @@ public class FracCalc {
 				return "ERROR: If you have a mixed number, the fractional part should not be written with negatives.";
 			}
 		}
-		if (answerArray[2] == 1) { 
+		if (answerArray[2] == 1 || answerArray[1] == 0) { 
 			//Formats the Strings correctly, e.g. 0 instead of 0/1 or 12 instead of 12/1.
 			return answerArray[1] + "";
-		}
-		if (answerArray[1] == 0) {
-			return "0";
 		}
 		return toMixedNum(answerArray[1], answerArray[2]);
 	}
@@ -75,7 +68,7 @@ public class FracCalc {
 		try {
 			//Error handling erroneous inputs, such as if a person types "#4 + $5", the program will catch the exception. 
 			//If error handling removed, try-catch is not needed, since we'd assume the user formats the input correctly.
-			if(secondFraction.length > 2) {
+			if(secondFraction.length > 2 || splitFraction.length > 2) {
 				//If person inputs more than one "_" in a row, throw an exception.
 				Integer.parseInt(input);
 			}
@@ -86,9 +79,6 @@ public class FracCalc {
 			if (splitFraction.length == 2) {
 				splitArray[1] = Integer.parseInt(splitFraction[0]);
 				splitArray[2] = Integer.parseInt(splitFraction[1]);
-			}
-			else {
-				Integer.parseInt(input);
 			}
 		}catch (NumberFormatException e) {
 			splitArray = null;
