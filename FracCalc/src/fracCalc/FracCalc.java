@@ -20,10 +20,9 @@ public class FracCalc {
 		System.out.println("Done.");
 	}
 
-	// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to test your code.
-	// e.g. String input ==> "1/2 + 3/4" e.g. return ==> "1_1/4"
-
 	public static String produceAnswer(String input) {
+		// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to test your code.
+		// e.g. String input ==> "1/2 + 3/4" e.g. return ==> "1_1/4"
 		// TODO: Implement this function to produce the solution to the input
 		String[] splitInput = input.split(" ");
 		if (splitInput.length < 3 || splitInput[0].equals("")) {
@@ -34,16 +33,16 @@ public class FracCalc {
 			if (!splitInput[i].equals("+") &&!splitInput[i].equals("-") &&!splitInput[i].equals("*") &&!splitInput[i].equals("/")) {
 				// Error Handling, for some weird input like "12 12 + 12".
 				// Checks if fractions have operators in between them. 
-				return "ERROR: Invalid Operations. Please enter numbers with appropriate operators between them.";
+				return "ERROR: Invalid Operation(s). Please enter numbers with appropriate operators between them.";
 			}
 		}
 		// Splits the first operator into whole, numerator, and denominator parts. 
 		int[] answerArray = splitPart(splitInput[0]);
 		for(int i = 0; i < splitInput.length - 2; i+=2) {
-			// Places old answerArray into new answerArray and operates on it (permits multiple operations).
+			// Places old answerArray into new answerArray and operates on it (can perform multiple operations).
 			answerArray = operate(answerArray, splitInput[i+1], splitPart(splitInput[i+2]));
 			if (Arrays.equals(answerArray, null)) {
-				return "ERROR: Incorrect Formatting";
+				return "ERROR: Incorrectly Formatted Numbers.";
 			}
 			//Error checking, answerArray[0] is an element that checks if something went wrong.
 			if(answerArray[0] == 1) {
@@ -67,9 +66,9 @@ public class FracCalc {
 		//Splits once by "_", then by "/".
 		try {
 			//Error handling erroneous inputs, such as if a person types "#4 + $5", the program will catch the exception. 
-			//If error handling removed, try-catch is not needed, since we'd assume the user formats the input correctly.
+			//If this type of error handling removed, try-catch is not needed, since we'd assume the user formats the input correctly.
 			if(secondFraction.length > 2 || splitFraction.length > 2) {
-				//If person inputs more than one "_" in a row, throw an exception.
+				//If person inputs more than one "_" or "/" in a row, throw an exception.
 				Integer.parseInt(input);
 			}
 			//Places appropriate integers into the fraction array.
@@ -106,7 +105,7 @@ public class FracCalc {
 			answer[0] = 1;
 		}
 		if((operand1[0] != 0 && (operand1[1] < 0 || operand1[2] < 0)) || (operand2[0] != 0 && (operand2[1] < 0 || operand2[2] < 0))){
-			// If an operand is a mixed number formatted incorrectly, change answer[0] to 2.
+			// If an operand is a mixed number formatted incorrectly, e.g. 1_-1/2, change answer[0] to 2.
 			answer[0] = 2;
 		}
 		// Can split into two methods (+ and *), but here is more compact because there are some common 
@@ -153,15 +152,6 @@ public class FracCalc {
 		else {
 			return -1 * number;
 		}
-	}
-	public static int max (int firstnum, int secondnum) {
-		// This method takes two integer values and returns the larger of the two.
-		if (firstnum >= secondnum) {
-			return firstnum;
-		}
-		else {
-			return secondnum;
-		}	
 	}
 	public static int min (int firstnum, int secondnum) {
 		// This method takes two integers and returns the smaller of the two.
