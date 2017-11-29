@@ -85,7 +85,7 @@ public class FracCalc {
 		return splitArray;
 	}
 	public static int[] operate(int[]operand1, String operation, int[] operand2) {
-		//Actually does the operations ( +, -, *, / ) to the String.
+		//Actually does the operations ( +, -, *, / ) to the String. First half is error handling.
 		if (Arrays.equals(operand1, null) || Arrays.equals(operand2, null)) {
 			//Here, a null array is code for something that went wrong, and the program throws an error message.
 			return null;
@@ -145,13 +145,8 @@ public class FracCalc {
 		return gcf;
 	}
 	public static int absValue (int number) {
-		// This method takes a double value and returns the absolute value of that double. 
-		if (number >= 0) {
-			return number;
-		}
-		else {
-			return -1 * number;
-		}
+		// This method takes an integer value and returns the absolute value of that integer. 
+		return -min(number, -number);
 	}
 	public static int min (int firstnum, int secondnum) {
 		// This method takes two integers and returns the smaller of the two.
