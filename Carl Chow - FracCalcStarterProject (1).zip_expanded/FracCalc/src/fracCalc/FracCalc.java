@@ -29,9 +29,10 @@ public class FracCalc {
     { 
         // TODO: Implement this function to produce the solution to the input
     	String[] splitInput = input.split(" ");
-    	Fraction operand1 = new Fraction(splitInput[0]);
-    	Fraction operand2 = new Fraction(splitInput[2]);
-        return operand2.toString();
+    	Fraction oper1 = new Fraction(splitInput[0]);
+    	Fraction oper2 = new Fraction(splitInput[2]);
+    	oper1.operate(splitInput[1], oper2);
+        return oper1.toString();
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
