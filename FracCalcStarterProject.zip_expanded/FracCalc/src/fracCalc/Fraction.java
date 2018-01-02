@@ -1,3 +1,6 @@
+//Carl Chow
+//Fraction Class for FracCalc
+//December 12, 2017
 package fracCalc;
 
 public class Fraction {
@@ -6,17 +9,17 @@ public class Fraction {
 	private int whole;
 
 	public Fraction(String input) {
-		String[] splitWhole = input.split("_");
-		String[] splitFraction = splitWhole[splitWhole.length - 1].split("/");
+		//Takes the String input of an unsplit fraction and separates its values.
+		String[] splitByWhole = input.split("_");
+		String[] splitFraction = splitByWhole[splitByWhole.length - 1].split("/");
 		// Splits once by "_", then by "/".
-		if (splitWhole.length == splitFraction.length) {
-			// Either fraction contains both "_" and "/" or neither, for the whole number not to be zero.
-			whole = Integer.parseInt(splitWhole[0]);
+		if (splitByWhole.length == splitFraction.length) {
+			// The fraction must contain either both "_" and "/", or neither, for the whole number not to be zero.
+			whole = Integer.parseInt(splitByWhole[0]);
 		}
 		if (splitFraction.length == 2) {
-			// If input contains a "/", it contains a fraction.
-			numerator = Integer.parseInt(splitFraction[0]);
-			denominator = Integer.parseInt(splitFraction[1]);
+			// If input contains a "/", it contains a fractional part.
+			this.setValues(whole, Integer.parseInt(splitFraction[0]), Integer.parseInt(splitFraction[1]));
 		}
 	}
 
@@ -25,8 +28,7 @@ public class Fraction {
 			return "ERROR: Zero in denominator.";
 		}
 		int gcf = gcf(absValue(numerator), absValue(denominator));
-		numerator /= gcf;
-		denominator /= gcf;
+		this.setValues(whole, numerator/gcf, denominator/gcf);
 		int wholenumber = numerator / denominator;
 		int remaindernumer = absValue(numerator) % absValue(denominator);
 		String mixednumber = wholenumber + "_" + remaindernumer + "/" + absValue(denominator);
@@ -42,7 +44,7 @@ public class Fraction {
 	}
 
 	public void operate(String operation, Fraction secondFraction) {
-		// Actually does the operations ( +, -, *, / ) to the String.
+		// Does the math operations to the Fraction, with a second Fraction's values.
 		int[] operand1 = this.toImproper();
 		int[] operand2 = secondFraction.toImproper();
 		// Initializes answer array with denominator in answer[1].
@@ -59,28 +61,32 @@ public class Fraction {
 		} else if (operation.equals("/")) {
 			answer[1] = operand1[1] * operand2[0];
 			if (operand2[1] == 0 || operand2[0] == 0) {
-				// If dividing by zero, eventually returns an error message. This takes care of "1 / 0".
+				// If dividing by zero, will return an error. This takes care of "1 / 0".
 				answer[1] = 0;
 			}
 		}
-		this.whole = 0;
-		this.numerator = answer[0];
-		this.denominator = answer[1];
+		this.setValues(0, answer[0], answer[1]);
 	}
 
-	// Helper Methods
 	private int[] toImproper() {
+		//Below, changes fractional form from mixed to improper.
 		int[] fractionArray = { (absValue(whole * denominator) + numerator), denominator };
 		if (whole < 0) {
 			fractionArray[0] *= -1;
 		}
 		return fractionArray;
 	}
+	
+	private void setValues(int whole, int numerator, int denominator) {
+		this.whole = whole;
+		this.numerator = numerator;
+		this.denominator = denominator;
+	}
 
 	private int gcf(int greaterint, int smallerint) {
-		// This method takes two positive integers and returns the greatest common factor (divisor).
+		// Takes two positive integers and returns the greatest common factor (divisor).
 		int gcf = 1;
-		for (int i = 1; i <= min(smallerint, greaterint); i++) {
+		for (int i = 1; i <= smallerint; i++) {
 			if (greaterint % i == 0 && smallerint % i == 0) {
 				gcf = i;
 			}
@@ -89,16 +95,10 @@ public class Fraction {
 	}
 
 	private int absValue(int number) {
-		// This method takes an integer value and returns the absolute value of that integer.
-		return -min(number, -number);
-	}
-
-	private int min(int firstnum, int secondnum) {
-		// This method takes two integers and returns the smaller of the two.
-		if (firstnum <= secondnum) {
-			return firstnum;
-		} else {
-			return secondnum;
+		// Takes an integer value and returns the absolute value of that integer.
+		if (number < 0) {
+			return -number;
 		}
+		return number;
 	}
 }
