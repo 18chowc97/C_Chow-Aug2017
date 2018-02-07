@@ -26,7 +26,6 @@ public class ThereAndBackAgain
 			System.out.println(party1[i].getName() + " has traveled " + party1[i].getDistanceTraveled() + " miles.");
 		}
 		
-		
 		System.out.println();
 		System.out.println("\n\n\nPART 2:  \n");
 
@@ -72,9 +71,9 @@ public class ThereAndBackAgain
 	public static String allTravel(ArrayList<Traveler> party, int miles)
 	{
 		String answer = "";
-		for(int i = 0; i < party.size();i++) {
-			party.get(i).travel(miles);
-			answer += party.get(i).getName() + " has traveled " + party.get(i).getDistanceTraveled() + " miles\n";
+		for(Traveler trav: party) {
+			trav.travel(miles);
+			answer += trav.getName() + " has traveled " + trav.getDistanceTraveled() + " miles\n";
 		}
 		return answer;
 	}
