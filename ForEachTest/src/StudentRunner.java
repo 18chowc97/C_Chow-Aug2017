@@ -17,6 +17,12 @@ public class StudentRunner {
 		}
 		System.out.println(x.getSum());
 		System.out.println(y.getSum());
+		ArrayList<Integer> list = new ArrayList<>();
+		list.add(12);
+		list.add(10);
+		for (int n:list) {
+			System.out.print(n);
+		}
 	}
 
 }
