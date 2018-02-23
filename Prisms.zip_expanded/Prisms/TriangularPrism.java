@@ -1,6 +1,7 @@
 /* Write this concrete (non-abstract) class called TriangularPrism.  
  * It has 3 private fields (sideA, sideB, and sideC).
  * It inherits its height from its superclass, Prism (because all prisms have a height).
+ * 
  * Provide a constructor and the methods required by its abstract superclass.  
  * 
  * Math Note:
@@ -14,7 +15,7 @@ public class TriangularPrism extends Prism{
 	private double sideA;
 	private double sideB;
 	private double sideC;
-	private double sp;
+	private double sp; //semiperimeter
 	public TriangularPrism( double a, double b, double c, double h ) {
 		super(h);
 		sideA = a;
