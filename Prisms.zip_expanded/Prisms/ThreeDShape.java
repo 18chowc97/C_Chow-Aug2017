@@ -1,10 +1,10 @@
 public abstract class ThreeDShape {
-	private double volume;
-	private double surfaceArea;
+	//private double volume;
+	//private double surfaceArea;
 
 	public ThreeDShape() {
-		this.volume = calcVolume();
-		this.surfaceArea = calcSA();
+		//this.volume = calcVolume();
+		//this.surfaceArea = calcSA();
 	}
 
 	// Can you write this code for this class or does it need to be overridden by

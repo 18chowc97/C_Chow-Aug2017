@@ -25,5 +25,6 @@ public abstract class Prism extends ThreeDShape {
 	public double calcSA() {
 		return calcPerimeter() * height + 2 * calcAreaOfBase();
 	}
+	
 }
 	
