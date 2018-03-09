@@ -10,7 +10,7 @@ public class TextCell implements Cell{
 		if(text.length() > 10) {
 			return text.substring(0, 10);
 		}
-		return "          ".substring(0, 10-text.length()) + text;
+		return text + "          ".substring(0, 10-text.length());
 	}
 	public String fullCellText() {
 		// text for individual cell inspection, not truncated or padded

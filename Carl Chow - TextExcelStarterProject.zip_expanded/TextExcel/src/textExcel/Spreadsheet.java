@@ -9,7 +9,7 @@ public class Spreadsheet implements Grid
 	@Override
 	public String processCommand(String command){
 		String[] split = command.split(" ");
-		if(command.toLowerCase().contains("clear")) {
+		if(split[0].toLowerCase().contains("clear")) {
 			if(split.length == 1) {
 				clear();
 			}
@@ -22,7 +22,10 @@ public class Spreadsheet implements Grid
 			return getCell(new SpreadsheetLocation(split[split.length-1])).fullCellText();
 		}
 		else if(command.contains("=")) {
-			if(split[2].startsWith("\"") && split[2].endsWith("\"")){
+			if(split[2].startsWith("\"") && split[split.length-1].endsWith("\"")){
+				for(int i = 2; i < split.length - 1;i++) {
+					split[2] += " " + split[i+1];
+				}
 				cellArray[(new SpreadsheetLocation(split[0])).getRow()][(new SpreadsheetLocation(split[0])).getCol()] = new TextCell(split[2]);
 			}	
 		}

@@ -9,7 +9,7 @@ public class EmptyCell implements Cell{
 	}
 	public String fullCellText() {
 		// text for individual cell inspection, not truncated or padded
-		return "          ";
+		return "";
 	}
 	
 }
