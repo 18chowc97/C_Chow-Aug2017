@@ -9,6 +9,9 @@ public class Spreadsheet implements Grid
 	@Override
 	public String processCommand(String command){
 		String[] split = command.split(" ", 3);
+		if(split[0].length() == 0) {
+			return "";
+		}
 		if(split[0].toLowerCase().contains("clear")) {
 			if(split.length == 1) {
 				clear();
@@ -23,9 +26,20 @@ public class Spreadsheet implements Grid
 			if(split.length == 1) {
 				return getCell(new SpreadsheetLocation(split[0])).fullCellText();
 			}
-			else if(split[2].startsWith("\"") && split[2].endsWith("\"")){
-				Location stringCell = new SpreadsheetLocation(split[0]);
-				cellArray[stringCell.getRow()][stringCell.getCol()] = new TextCell(split[2]);
+			Location updateCell = new SpreadsheetLocation(split[0]);
+			if(split[2].startsWith("\"") && split[2].endsWith("\"")){
+				cellArray[updateCell.getRow()][updateCell.getCol()] = new TextCell(split[2]);
+			}
+			else if(Character.isDigit(split[2].charAt(0)) || Character.isDigit(split[2].charAt(1))) {
+				if(split[2].endsWith("%")) {
+					cellArray[updateCell.getRow()][updateCell.getCol()] = new PercentCell(split[2]);
+				}
+				else {
+					cellArray[updateCell.getRow()][updateCell.getCol()] = new ValueCell(split[2]);
+				}
+			}
+			else if(split[2].startsWith("(") && split[2].endsWith(")")) {
+				cellArray[updateCell.getRow()][updateCell.getCol()] = new FormulaCell(split[2]);
 			}
 		}
 		return this.getGridText();
