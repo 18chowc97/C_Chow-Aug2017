@@ -4,7 +4,7 @@ public class Spreadsheet implements Grid
 {
 	private Cell[][] cellArray = new Cell[20][12];
 	public Spreadsheet() {
-		clear();
+		clear(" ");
 	}
 	@Override
 	public String processCommand(String command){
@@ -13,34 +13,15 @@ public class Spreadsheet implements Grid
 			return "";
 		}
 		if(split[0].toLowerCase().contains("clear")) {
-			if(split.length == 1) {
-				clear();
-			}
-			else {
-				Location clearedCell = new SpreadsheetLocation(split[split.length - 1]);
-				cellArray[clearedCell.getRow()][clearedCell.getCol()] = new EmptyCell();
-			}
+			clear(split[split.length - 1]);
 		}
 		else if(Character.isLetter(split[0].charAt(0)) && Character.isDigit(split[0].charAt(1))) {
 			//extensive test for error handling if user types something that isn't a command
 			if(split.length == 1) {
 				return getCell(new SpreadsheetLocation(split[0])).fullCellText();
 			}
-			Location updateCell = new SpreadsheetLocation(split[0]);
-			if(split[2].startsWith("\"") && split[2].endsWith("\"")){
-				cellArray[updateCell.getRow()][updateCell.getCol()] = new TextCell(split[2]);
-			}
-			else if(Character.isDigit(split[2].charAt(0)) || Character.isDigit(split[2].charAt(1))) {
-				if(split[2].endsWith("%")) {
-					cellArray[updateCell.getRow()][updateCell.getCol()] = new PercentCell(split[2]);
-				}
-				else {
-					cellArray[updateCell.getRow()][updateCell.getCol()] = new ValueCell(split[2]);
-				}
-			}
-			else if(split[2].startsWith("(") && split[2].endsWith(")")) {
-				cellArray[updateCell.getRow()][updateCell.getCol()] = new FormulaCell(split[2]);
-			}
+			Location update = new SpreadsheetLocation(split[0]);
+			updateCell(update.getRow(), update.getCol(), split[2]);
 		}
 		return this.getGridText();
 	}
@@ -78,11 +59,32 @@ public class Spreadsheet implements Grid
 		return grid;
 	}
 	
-	private void clear() {
-		for(int i = 0; i < cellArray.length; i++) {
-			for(int j = 0; j <cellArray[i].length; j++) {
-				cellArray[i][j] = new EmptyCell();
+	private void clear(String cell) {
+		if(!Character.isDigit(cell.charAt(cell.length() - 1))){
+			for(int i = 0; i < cellArray.length; i++) {
+				for(int j = 0; j < cellArray[i].length; j++) {
+					cellArray[i][j] = new EmptyCell();
+				}
 			}
+		}
+		else {
+			Location clearedCell = new SpreadsheetLocation(cell);
+			cellArray[clearedCell.getRow()][clearedCell.getCol()] = new EmptyCell();
+		}
+	}
+	
+	private void updateCell(int row, int col, String condition) {
+		if(condition.startsWith("\"") && condition.endsWith("\"")){
+			cellArray[row][col] = new TextCell(condition);
+		}
+		else if(condition.endsWith("%")) {
+			cellArray[row][col] = new PercentCell(condition);
+		}
+		else if(condition.startsWith("(") && condition.endsWith(")")) {
+			cellArray[row][col] = new FormulaCell(condition);
+		}
+		else{
+			cellArray[row][col] = new ValueCell(condition);
 		}
 	}
 
