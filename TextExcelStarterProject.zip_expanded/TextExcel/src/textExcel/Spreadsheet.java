@@ -8,26 +8,25 @@ public class Spreadsheet implements Grid
 	}
 	@Override
 	public String processCommand(String command){
-		String[] split = command.split(" ");
+		String[] split = command.split(" ", 3);
 		if(split[0].toLowerCase().contains("clear")) {
 			if(split.length == 1) {
 				clear();
 			}
 			else {
-				Location loc = new SpreadsheetLocation(split[split.length-1]);
-				cellArray[loc.getRow()][loc.getCol()] = new EmptyCell();
+				Location clearedCell = new SpreadsheetLocation(split[split.length - 1]);
+				cellArray[clearedCell.getRow()][clearedCell.getCol()] = new EmptyCell();
 			}
 		}
-		else if(split.length == 1) {
-			return getCell(new SpreadsheetLocation(split[split.length-1])).fullCellText();
-		}
-		else if(command.contains("=")) {
-			if(split[2].startsWith("\"") && split[split.length-1].endsWith("\"")){
-				for(int i = 2; i < split.length - 1;i++) {
-					split[2] += " " + split[i+1];
-				}
-				cellArray[(new SpreadsheetLocation(split[0])).getRow()][(new SpreadsheetLocation(split[0])).getCol()] = new TextCell(split[2]);
-			}	
+		else if(Character.isLetter(split[0].charAt(0)) && Character.isDigit(split[0].charAt(1))) {
+			//extensive test for error handling if user types something that isn't a command
+			if(split.length == 1) {
+				return getCell(new SpreadsheetLocation(split[0])).fullCellText();
+			}
+			else if(split[2].startsWith("\"") && split[2].endsWith("\"")){
+				Location stringCell = new SpreadsheetLocation(split[0]);
+				cellArray[stringCell.getRow()][stringCell.getCol()] = new TextCell(split[2]);
+			}
 		}
 		return this.getGridText();
 	}
