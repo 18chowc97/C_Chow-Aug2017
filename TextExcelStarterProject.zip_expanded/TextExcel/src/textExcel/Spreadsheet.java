@@ -4,7 +4,7 @@ public class Spreadsheet implements Grid
 {
 	private Cell[][] cellArray = new Cell[20][12];
 	public Spreadsheet() {
-		clear(" ");
+		clear("clear");
 	}
 	@Override
 	public String processCommand(String command){
@@ -15,11 +15,10 @@ public class Spreadsheet implements Grid
 		if(split[0].toLowerCase().contains("clear")) {
 			clear(split[split.length - 1]);
 		}
-		else if(Character.isLetter(split[0].charAt(0)) && Character.isDigit(split[0].charAt(1))) {
-			//extensive test for error handling if user types something that isn't a command
-			if(split.length == 1) {
-				return getCell(new SpreadsheetLocation(split[0])).fullCellText();
-			}
+		else if(split.length == 1) {
+			return getCell(new SpreadsheetLocation(split[0])).fullCellText();
+		}
+		else if(split[1].equals("=")) {
 			Location update = new SpreadsheetLocation(split[0]);
 			updateCell(update.getRow(), update.getCol(), split[2]);
 		}
@@ -60,7 +59,7 @@ public class Spreadsheet implements Grid
 	}
 	
 	private void clear(String cell) {
-		if(!Character.isDigit(cell.charAt(cell.length() - 1))){
+		if(cell.equalsIgnoreCase("clear")){
 			for(int i = 0; i < cellArray.length; i++) {
 				for(int j = 0; j < cellArray[i].length; j++) {
 					cellArray[i][j] = new EmptyCell();
@@ -83,7 +82,7 @@ public class Spreadsheet implements Grid
 		else if(condition.startsWith("(") && condition.endsWith(")")) {
 			cellArray[row][col] = new FormulaCell(condition);
 		}
-		else{
+		else {
 			cellArray[row][col] = new ValueCell(condition);
 		}
 	}
