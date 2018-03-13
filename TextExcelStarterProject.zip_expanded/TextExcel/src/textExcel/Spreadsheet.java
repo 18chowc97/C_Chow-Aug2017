@@ -80,7 +80,15 @@ public class Spreadsheet implements Grid
 			cellArray[row][col] = new PercentCell(condition);
 		}
 		else if(condition.startsWith("(") && condition.endsWith(")")) {
-			cellArray[row][col] = new FormulaCell(condition);
+			String[] calcArray = condition.split(" ");
+			for(int i = 1; i < calcArray.length; i+=2) {
+				if(Character.isLetter(calcArray[i].charAt(0))) {
+					Location loc = new SpreadsheetLocation(calcArray[i]);
+					RealCell real = (RealCell)(getCell(loc));
+					calcArray[i] = real.getDoubleValue() + "";
+				}
+			}
+			cellArray[row][col] = new FormulaCell(condition, calcArray);
 		}
 		else {
 			cellArray[row][col] = new ValueCell(condition);
