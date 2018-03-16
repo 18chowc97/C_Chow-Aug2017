@@ -81,12 +81,17 @@ public class Spreadsheet implements Grid
 		}
 		else if(condition.startsWith("(") && condition.endsWith(")")) {
 			String[] calcArray = condition.split(" ");
-			for(int i = 1; i < calcArray.length; i+=2) {
-				if(Character.isLetter(calcArray[i].charAt(0))) {
-					Location loc = new SpreadsheetLocation(calcArray[i]);
-					RealCell real = (RealCell)(getCell(loc));
-					calcArray[i] = real.getDoubleValue() + "";
+			if (!Character.isLetter(calcArray[1].charAt(calcArray[1].length() - 1))) {
+				for(int i = 1; i < calcArray.length; i+=2) {
+					if(Character.isLetter(calcArray[i].charAt(0))) {
+						Location loc = new SpreadsheetLocation(calcArray[i]);
+						RealCell real = (RealCell)(getCell(loc));
+						calcArray[i] = real.getDoubleValue() + "";
+					}
 				}
+			}
+			else {
+				
 			}
 			cellArray[row][col] = new FormulaCell(condition, calcArray);
 		}
