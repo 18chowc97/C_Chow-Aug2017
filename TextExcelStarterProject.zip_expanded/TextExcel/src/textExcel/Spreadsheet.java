@@ -39,6 +39,12 @@ public class Spreadsheet implements Grid
 	public Cell getCell(Location loc){
 		return cellArray[loc.getRow()][loc.getCol()];
 	}
+	
+	public double getRCValue(String location) {
+		Location loc = new SpreadsheetLocation(location);
+		RealCell real = (RealCell)(getCell(loc));
+		return real.getDoubleValue();
+	}
 
 	@Override
 	public String getGridText(){
@@ -80,20 +86,7 @@ public class Spreadsheet implements Grid
 			cellArray[row][col] = new PercentCell(condition);
 		}
 		else if(condition.startsWith("(") && condition.endsWith(")")) {
-			String[] calcArray = condition.split(" ");
-			if (!Character.isLetter(calcArray[1].charAt(calcArray[1].length() - 1))) {
-				for(int i = 1; i < calcArray.length; i+=2) {
-					if(Character.isLetter(calcArray[i].charAt(0))) {
-						Location loc = new SpreadsheetLocation(calcArray[i]);
-						RealCell real = (RealCell)(getCell(loc));
-						calcArray[i] = real.getDoubleValue() + "";
-					}
-				}
-			}
-			else {
-				
-			}
-			cellArray[row][col] = new FormulaCell(condition, calcArray);
+			cellArray[row][col] = new FormulaCell(condition, cellArray);
 		}
 		else {
 			cellArray[row][col] = new ValueCell(condition);
