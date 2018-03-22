@@ -22,6 +22,9 @@ public class Spreadsheet implements Grid
 			Location update = new SpreadsheetLocation(split[0]);
 			updateCell(update.getRow(), update.getCol(), split[2]);
 		}
+		else if(split[0].toLowerCase().contains("sort")) {
+			
+		}
 		return this.getGridText();
 	}
 
@@ -38,12 +41,6 @@ public class Spreadsheet implements Grid
 	@Override
 	public Cell getCell(Location loc){
 		return cellArray[loc.getRow()][loc.getCol()];
-	}
-	
-	public double getRCValue(String location) {
-		Location loc = new SpreadsheetLocation(location);
-		RealCell real = (RealCell)(getCell(loc));
-		return real.getDoubleValue();
 	}
 
 	@Override
