@@ -1,6 +1,6 @@
 package textExcel;
 
-public class TextCell implements Cell, Comparable<TextCell>{
+public class TextCell implements Cell, Comparable<Object>{
 	private String text;
 	public TextCell(String text) {
 		this.text = text.substring(1, text.length()-1);
@@ -14,8 +14,9 @@ public class TextCell implements Cell, Comparable<TextCell>{
 		return "\"" + text + "\"";
 	}
 	
-	public int compareTo(TextCell o) {
-		return this.fullCellText().compareTo(o.fullCellText());
+	public int compareTo(Object o) {
+		TextCell t = (TextCell) o;
+		return this.fullCellText().compareTo(t.fullCellText());
 	}
 
 }

@@ -1,6 +1,6 @@
 package textExcel;
 
-public abstract class RealCell implements Cell, Comparable<RealCell>{
+public abstract class RealCell implements Cell, Comparable<Object>{
 	String realValue;
 	public RealCell(String numVal) {
 		realValue = numVal;
@@ -10,8 +10,9 @@ public abstract class RealCell implements Cell, Comparable<RealCell>{
 		return realValue;
 	}
 	public abstract double getDoubleValue();
-	public int compareTo(RealCell o) {
-		double compare = this.getDoubleValue() - o.getDoubleValue();
+	public int compareTo(Object o) {
+		RealCell r = (RealCell) o;
+		double compare = this.getDoubleValue() - r.getDoubleValue();
 		return (int)(compare/Math.abs(compare));
 	}
 }

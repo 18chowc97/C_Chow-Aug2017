@@ -1,4 +1,5 @@
 package textExcel;
+import java.util.*;
 
 public class Spreadsheet implements Grid
 {
@@ -23,7 +24,30 @@ public class Spreadsheet implements Grid
 			updateCell(update.getRow(), update.getCol(), split[2]);
 		}
 		else if(split[0].toLowerCase().contains("sort")) {
-			
+			String[] endpoint = split[1].split("-");
+			ArrayList<Cell> compArr = new ArrayList<Cell>();
+			Location cL = new SpreadsheetLocation(endpoint[0]);
+			Location cR = new SpreadsheetLocation(endpoint[1]);
+			for(int i = cL.getRow(); i <= cR.getRow(); i++ ) {
+				for(int j = cL.getCol(); j <= cR.getCol(); j++) {
+					int index = 0;
+					for(Cell c: compArr) {
+						if(c instanceof TextCell) {
+							TextCell t = (TextCell) cellArray[i][j];
+							if(t.compareTo(c) < 0) {
+								index++;
+							}
+						}
+						else if(c instanceof RealCell){
+							RealCell r = (RealCell) cellArray[i][j];
+							if(r.compareTo(c) < 0) {
+								index++;
+							}
+						}
+					}
+					compArr.add(index, cellArray[i][j]);
+				}
+			}
 		}
 		return this.getGridText();
 	}
