@@ -32,13 +32,13 @@ public class Spreadsheet implements Grid
 				for(int j = cL.getCol(); j <= cR.getCol(); j++) {
 					int index = 0;
 					for(Cell c: compArr) {
-						if(c instanceof TextCell) {
+						if(cellArray[i][j] instanceof TextCell) {
 							TextCell t = (TextCell) cellArray[i][j];
 							if(t.compareTo(c) < 0) {
 								index++;
 							}
 						}
-						else if(c instanceof RealCell){
+						else if(cellArray[i][j] instanceof RealCell){
 							RealCell r = (RealCell) cellArray[i][j];
 							if(r.compareTo(c) < 0) {
 								index++;
@@ -80,7 +80,6 @@ public class Spreadsheet implements Grid
 
 	@Override
 	public String getGridText(){
-		// TODO Auto-generated method stub
 		String grid = "   |";
 		for(char c = 'A'; c <= 'L'; c++) {
 			grid += c + "         |";
