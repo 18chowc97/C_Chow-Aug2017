@@ -16,9 +16,6 @@ public class TextExcel {
 			System.out.println(sheet.processCommand(command));
 			command = input.nextLine();
 		}
-		//TestsALL.Helper th = new TestsALL.Helper();
-		//System.out.println(sheet.getGridText());
-		//System.out.println(th.getText());
 		input.close();
 	}
 }

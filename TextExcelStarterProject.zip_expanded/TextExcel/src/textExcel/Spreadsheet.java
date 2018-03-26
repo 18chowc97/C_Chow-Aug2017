@@ -48,6 +48,17 @@ public class Spreadsheet implements Grid
 					compArr.add(index, cellArray[i][j]);
 				}
 			}
+			int placeholder = 0;
+			if(split[0].endsWith("a") || split[0].endsWith("A")) {
+				placeholder = 1 - compArr.size();
+			}
+			for(int i = cL.getRow(); i <= cR.getRow(); i++ ) {
+				for(int j = cL.getCol(); j <= cR.getCol(); j++) {
+					cellArray[i][j] = compArr.get(Math.abs(placeholder));
+					placeholder++;
+				}
+			}
+			
 		}
 		return this.getGridText();
 	}
