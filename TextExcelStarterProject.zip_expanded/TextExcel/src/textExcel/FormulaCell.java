@@ -1,7 +1,9 @@
 package textExcel;
+import java.util.*;
 
 public class FormulaCell extends RealCell{
-	Cell[][] sheet;
+	private Cell[][] sheet;
+	private static ArrayList<String> crTest = new ArrayList<String>(); //for Circular Reference Errors
 	public FormulaCell(String numVal, Cell[][] sheet) {
 		super(numVal);
 		this.sheet = sheet;
@@ -14,7 +16,7 @@ public class FormulaCell extends RealCell{
 		if (!Character.isLetter(calcArray[1].charAt(calcArray[1].length() - 1))) {
 			for(int i = 1; i < calcArray.length; i+=2) {
 				if(Character.isLetter(calcArray[i].charAt(0))) {
-					calcArray[i] = getRCValue(calcArray[i]) + "";
+					calcArray[i] = getRCValue(calcArray[i]);
 				}
 			}
 		}
@@ -51,12 +53,19 @@ public class FormulaCell extends RealCell{
 				answer /= Double.parseDouble(calcArray[i + 1]);
 			}
 		}
+		crTest.clear();
 		return answer;
 	}
 	
-	public double getRCValue(String location) {
+	public String getRCValue(String location) {
 		Location loc = new SpreadsheetLocation(location);
+		for (String s : crTest) {
+			if(location.equalsIgnoreCase(s)) {
+				return ("e");
+			}
+		}
+		crTest.add(location);
 		RealCell real = (RealCell)(sheet[loc.getRow()][loc.getCol()]);
-		return real.getDoubleValue();
+		return real.getDoubleValue()+"";
 	}
 }
