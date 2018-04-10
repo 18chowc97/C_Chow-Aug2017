@@ -4,9 +4,11 @@ import java.util.*;
 public class FormulaCell extends RealCell{
 	private Cell[][] sheet;
 	private static ArrayList<String> crTest = new ArrayList<String>(); //for Circular Reference Errors
-	public FormulaCell(String numVal, Cell[][] sheet) {
+	private int errorcheck; // also for Circular Reference Errors
+	public FormulaCell(String numVal, Cell[][] sheet, String cellname) {
 		super(numVal);
 		this.sheet = sheet;
+		crTest.add(cellname);
 	}
 	public String abbreviatedCellText() {
 		return (getDoubleValue() + "         ").substring(0, 10);
@@ -14,10 +16,13 @@ public class FormulaCell extends RealCell{
 	public double getDoubleValue() {
 		String[] calcArray = fullCellText().split(" ");
 		if (!Character.isLetter(calcArray[1].charAt(calcArray[1].length() - 1))) {
+			test(calcArray);
+			if(errorcheck != 1) {
 			for(int i = 1; i < calcArray.length; i+=2) {
 				if(Character.isLetter(calcArray[i].charAt(0))) {
-					calcArray[i] = getRCValue(calcArray[i]);
+					calcArray[i] = getRCValue(calcArray[i]).getDoubleValue()+"";
 				}
+			}
 			}
 		}
 		else {
@@ -53,19 +58,25 @@ public class FormulaCell extends RealCell{
 				answer /= Double.parseDouble(calcArray[i + 1]);
 			}
 		}
-		crTest.clear();
 		return answer;
 	}
 	
-	public String getRCValue(String location) {
+	public RealCell getRCValue(String location) {
 		Location loc = new SpreadsheetLocation(location);
-		for (String s : crTest) {
-			if(location.equalsIgnoreCase(s)) {
-				return ("e");
+		return (RealCell)(sheet[loc.getRow()][loc.getCol()]);		
+	}
+	public void test (String[] text) { //for Circular Reference Errors
+		for (int i = 1; i < text.length - 1; i+=2) {
+			if(Character.isLetter(text[i].charAt(0)) && errorcheck != 1) {
+				crTest.add(text[i]);
+				for (String s: crTest) {
+					if(crTest.indexOf(s) != crTest.lastIndexOf(s)) {
+						errorcheck = 1;
+					}
+				}
+				test(getRCValue(text[i]).fullCellText().split(" "));
 			}
 		}
-		crTest.add(location);
-		RealCell real = (RealCell)(sheet[loc.getRow()][loc.getCol()]);
-		return real.getDoubleValue()+"";
+		crTest.clear();
 	}
 }

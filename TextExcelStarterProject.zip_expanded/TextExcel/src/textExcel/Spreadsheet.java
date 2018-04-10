@@ -21,7 +21,7 @@ public class Spreadsheet implements Grid
 		}
 		else if(split[1].equals("=")) {
 			Location update = new SpreadsheetLocation(split[0]);
-			updateCell(update.getRow(), update.getCol(), split[2]);
+			updateCell(update.getRow(), update.getCol(), split[2], split[0]);
 		}
 		else if(split[0].toLowerCase().contains("sort")) {
 			String[] endpoint = split[1].split("-");
@@ -109,7 +109,7 @@ public class Spreadsheet implements Grid
 		}
 	}
 	
-	private void updateCell(int row, int col, String condition) {
+	private void updateCell(int row, int col, String condition, String CRCheck) {
 		if(condition.startsWith("\"") && condition.endsWith("\"")){
 			cellArray[row][col] = new TextCell(condition);
 		}
@@ -117,7 +117,7 @@ public class Spreadsheet implements Grid
 			cellArray[row][col] = new PercentCell(condition);
 		}
 		else if(condition.startsWith("(") && condition.endsWith(")")) {
-			cellArray[row][col] = new FormulaCell(condition, cellArray);
+			cellArray[row][col] = new FormulaCell(condition, cellArray, CRCheck);
 		}
 		else {
 			cellArray[row][col] = new ValueCell(condition);
