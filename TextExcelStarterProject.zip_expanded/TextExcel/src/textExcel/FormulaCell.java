@@ -1,3 +1,6 @@
+//Carl Chow
+//4/13/18
+//Cell that takes equations and formulas, also contains sort command
 package textExcel;
 import java.util.*;
 
@@ -20,7 +23,7 @@ public class FormulaCell extends RealCell{
 				}
 			}
 		}
-		else { //if the first index is either avg or sum command
+		else { //if the first index is either average or sum command
 			double total = 0; int counter = 0;
 			String[] endpoint = calcArray[2].split("-");
 			Location cL = new SpreadsheetLocation(endpoint[0]);
@@ -62,5 +65,3 @@ public class FormulaCell extends RealCell{
 		return (RealCell)(sheet[loc.getRow()][loc.getCol()]);		
 	}
 }
-//private static ArrayList<String> crTest = new ArrayList<String>(); //for Circular Reference Errors
-//private boolean errorcheck = false; // also for Circular Reference Errors (EC Checkpoint)

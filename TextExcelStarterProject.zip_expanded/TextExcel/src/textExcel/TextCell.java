@@ -1,3 +1,5 @@
+//Carl Chow
+//Cell that accepts String values
 package textExcel;
 
 public class TextCell implements Cell, Comparable<Object>{

@@ -1,3 +1,5 @@
+//Carl Chow
+//Cell for an empty cell
 package textExcel;
 
 public class EmptyCell implements Cell{

@@ -1,6 +1,6 @@
+//Carl Chow
+//Class that describes the location (row and column) of a cell name
 package textExcel;
-
-//Update this file with your own code.
 
 public class SpreadsheetLocation implements Location{
 	private int column;

@@ -1,3 +1,6 @@
+//Carl Chow
+//4/13/18
+//The main spreadsheet object actually accepts commands
 package textExcel;
 import java.util.*;
 

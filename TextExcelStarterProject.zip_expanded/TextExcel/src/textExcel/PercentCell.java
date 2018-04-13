@@ -1,3 +1,5 @@
+//Carl Chow
+//Cell that takes a percent value
 package textExcel;
 
 public class PercentCell extends ValueCell{
