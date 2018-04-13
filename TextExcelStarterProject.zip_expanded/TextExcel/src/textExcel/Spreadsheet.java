@@ -10,40 +10,41 @@ public class Spreadsheet implements Grid
 	@Override
 	public String processCommand(String command){
 		String[] split = command.split(" ", 3);
-		if(split[0].length() == 0) {
+		if(split[0].length() == 0) { // if empty command, return empty String
 			return "";
 		}
-		if(split[0].toLowerCase().contains("clear")) {
+		if(split[0].toLowerCase().contains("clear")) { // checks for both instances of "clear" command
 			clear(split[split.length - 1]);
 		}
-		else if(split.length == 1) {
+		else if(split.length == 1) { // if user types in  just the cell name
 			return getCell(new SpreadsheetLocation(split[0])).fullCellText();
 		}
-		else if(split[1].equals("=")) {
+		else if(split[1].equals("=")) { // if the user types an assignment statement
 			Location update = new SpreadsheetLocation(split[0]);
 			updateCell(update.getRow(), update.getCol(), split[2], split[0]);
 		}
-		else if(split[0].toLowerCase().contains("sort")) {
+		else if(split[0].toLowerCase().contains("sort")) { // if user types a sort command (Checkpoint 6)
 			String[] endpoint = split[1].split("-");
 			ArrayList<Cell> compArr = new ArrayList<Cell>();
 			Location cL = new SpreadsheetLocation(endpoint[0]);
 			Location cR = new SpreadsheetLocation(endpoint[1]);
 			for(int i = cL.getRow(); i <= cR.getRow(); i++ ) {
 				for(int j = cL.getCol(); j <= cR.getCol(); j++) {
+					//uses end points to traverse selected cells and place them in order in an ArrayList
 					int index = 0;
 					for(Cell c: compArr) {
 						if(cellArray[i][j] instanceof TextCell) {
 							TextCell t = (TextCell) cellArray[i][j];
-							if(t.compareTo(c) < 0) {
+							if(t.compareTo(c) < 0) { 
 								index++;
-							}
-						}
+							} 
+						} // we need an if/else because we implement Comparable interface on both RealCell and TextCell
 						else if(cellArray[i][j] instanceof RealCell){
 							RealCell r = (RealCell) cellArray[i][j];
 							if(r.compareTo(c) < 0) {
 								index++;
 							}
-						}
+						} // uses compareTo method to add certain cells in order by incrementing index
 					}
 					compArr.add(index, cellArray[i][j]);
 				}
@@ -51,7 +52,7 @@ public class Spreadsheet implements Grid
 			int placeholder = 0;
 			if(split[0].endsWith("a") || split[0].endsWith("A")) {
 				placeholder = 1 - compArr.size();
-			}
+			} // if sorta instead of sortd, the loop increments in reverse, using Math.abs
 			for(int i = cL.getRow(); i <= cR.getRow(); i++ ) {
 				for(int j = cL.getCol(); j <= cR.getCol(); j++) {
 					cellArray[i][j] = compArr.get(Math.abs(placeholder));
@@ -96,7 +97,7 @@ public class Spreadsheet implements Grid
 	}
 	
 	private void clear(String cell) {
-		if(cell.equalsIgnoreCase("clear")){
+		if(cell.equalsIgnoreCase("clear")){ // if the command is just "clear"
 			for(int i = 0; i < cellArray.length; i++) {
 				for(int j = 0; j < cellArray[i].length; j++) {
 					cellArray[i][j] = new EmptyCell();
